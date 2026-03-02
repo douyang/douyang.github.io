@@ -1,303 +1,441 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David Ouyang</title>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-G5FM9EVVRE"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-G5FM9EVVRE');
 </script>
 
-	
-<title>David Ouyang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="index.css" type="text/css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<meta name=viewport content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --color-primary: #8c1515;
+    --color-primary-hover: #b91c1c;
+    --color-text: #1e293b;
+    --color-text-muted: #475569;
+    --color-bg: #fafaf8;
+    --color-surface: #ffffff;
+    --color-border: #e2e0dc;
+    --color-section-label: #64748b;
+    --font-serif: 'Source Serif 4', Georgia, serif;
+    --font-sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
 
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background: var(--color-bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+  }
+
+  /* ---- Layout ---- */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  /* ---- Header / Hero ---- */
+  .header {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-photo {
+    flex-shrink: 0;
+  }
+
+  .header-photo img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-border);
+  }
+
+  .header-info h1 {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .header-info .affiliation {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .header-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+  }
+
+  .header-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .header-links a:hover {
+    background: #f1f0ed;
+    border-color: #ccc;
+    text-decoration: none;
+  }
+
+  /* ---- Sections ---- */
+  .section {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .section:last-child {
+    border-bottom: none;
+  }
+
+  .section-label {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-section-label);
+    padding-top: 0.2rem;
+    text-align: right;
+  }
+
+  .section-content p {
+    margin-bottom: 1rem;
+  }
+
+  .section-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ---- Lab Members ---- */
+  .members-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .members-group h3 {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+
+  .members-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .members-table th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-section-label);
+    padding: 0.4rem 1rem 0.4rem 0;
+    border-bottom: 1.5px solid var(--color-border);
+  }
+
+  .members-table td {
+    padding: 0.4rem 1rem 0.4rem 0;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid #f0efec;
+  }
+
+  .members-table td:first-child {
+    color: var(--color-text);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* ---- Publications ---- */
+  .pub-category {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .pub-category:first-child {
+    margin-top: 0;
+  }
+
+  .pub-list {
+    list-style: none;
+    margin-bottom: 1.25rem;
+  }
+
+  .pub-list li {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0efec;
+  }
+
+  .pub-list li:last-child {
+    border-bottom: none;
+  }
+
+  .pub-list .authors {
+    color: var(--color-text-muted);
+  }
+
+  .pub-list .venue {
+    font-weight: 600;
+  }
+
+  .pub-list a {
+    font-family: var(--font-serif);
+  }
+
+  .cta {
+    margin-top: 1rem;
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+
+  .scholar-link {
+    margin-top: 0.5rem;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 700px) {
+    .header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .header-links {
+      justify-content: center;
+    }
+
+    .section {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .section-label {
+      text-align: left;
+    }
+
+    .members-table {
+      font-size: 0.85rem;
+    }
+
+    .members-table td:first-child {
+      white-space: normal;
+    }
+
+    .container {
+      padding: 2rem 1.25rem 4rem;
+    }
+  }
+</style>
 </head>
 
 <body>
+<div class="container">
 
-<div align=center>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-photo">
+      <img src="photo.jpg" alt="David Ouyang">
+    </div>
+    <div class="header-info">
+      <h1>David Ouyang</h1>
+      <div class="affiliation">
+        Research Scientist and Cardiologist, Kaiser Permanente Division of Research<br>
+        Assistant Professor, Cedars-Sinai Medical Center
+      </div>
+      <div class="header-links">
+        <a href="mailto:david.ouyang@kp.org">Email</a>
+        <a href="cv.pdf">CV</a>
+        <a href="https://scholar.google.com/citations?user=on2DUKoAAAAJ&hl=en">Google Scholar</a>
+      </div>
+    </div>
+  </header>
 
-<br/>
-<br/>
+  <!-- About -->
+  <section class="section">
+    <div class="section-label">About</div>
+    <div class="section-content">
+      <p>I am a cardiologist and researcher in the <a href="https://divisionofresearch.kaiserpermanente.org/researchers/ouyang-david/">Division of Research</a> at Kaiser Permanente Northern California and an adjunct <a href="https://researchers.cedars-sinai.edu/David.Ouyang/">Assistant Professor</a> at the Smidt Heart Institute at Cedars-Sinai. I majored in statistics at Rice University, obtained my MD at UCSF, and received post-graduate medical education in internal medicine, cardiology, and a postdoc in computer science and biomedical data science at Stanford University. I am also a Deputy Editor at <a href="https://ai.nejm.org/">NEJM AI</a> and Chair of the <a href="https://www.asecho.org/practice-clinical-resources/imageguideecho-registry/">ImageGuideRegistry</a> for the American Society of Echocardiography.</p>
+    </div>
+  </section>
 
-<div class="all">
-  
-<div class="row txt">
-  <div class="col-md-3 stitle">
-    <img src="photo.jpg" alt="David Ouyang" width=175px>
-  </div>
-  <div class="col-md-7">
-    <h1 style="margin-top:0px;">David Ouyang</h1>
-    Research Scientist and Cardiologist, Kaiser Permanente Division of Research 
-    <br/>
-    Assistant Professor, Cedars-Sinai Medical Center
-    <br/>
-     <a href="mailto:david.ouyang@cshs.org">david.ouyang@kp.org</a>
-    <br/>
-    [<a href="cv.pdf">CV</a>]
-  </div>
-</div>
+  <!-- Research / Lab Members -->
+  <section class="section">
+    <div class="section-label">Research</div>
+    <div class="section-content">
+      <p>Our mission is to improve cardiovascular diagnosis and disease detection using computer vision and artificial intelligence. We focus on <a href="https://www.nature.com/articles/s41586-020-2145-8">AI model development</a>, <a href="https://www.nature.com/articles/s41746-019-0216-8.pdf">AI model understanding</a>, and <a href="https://www.nature.com/articles/s41586-023-05947-3">AI model deployment</a>. We are interested in all forms of cardiovascular data, including ECG, MRI, radiological imaging, and are particularly interested in novel insights from pre-existing data such as <a href="https://www.nature.com/articles/s41586-025-09850-x">foundation models</a> and <a href="https://www.nature.com/articles/s41591-024-02959-y">vision-language models</a> for echocardiography. Our work has been published in Nature, Nature Medicine, NEJM AI, Circulation, JAMA Cardiology, EHJ, and other scientific venues. Our group works on multi-modal datasets, leveraging EHR, ECG, echo, and MRI data for a broad perspective on cardiovascular disease. Our lab members bring expertise from a wide range of backgrounds ranging from physics, mechanical engineering, and computer science to cardiology, anesthesia, and internal medicine.</p>
+      <p>The best part of the job are the people I get to work with. I have the good fortune of working with a great group of motivated, talented, and creative individuals from a wide range of backgrounds.</p>
 
-<br/>
+      <div class="members-group">
+        <h3>Current Members</h3>
+        <table class="members-table">
+          <thead><tr><th>Name</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td>Milos Vukadinovic</td><td>UCLA Bioengineering PhD Student</td></tr>
+            <tr><td>Yuki Sahashi</td><td>Postdoctoral Fellow, Cardiologist</td></tr>
+            <tr><td>Justin Rhee</td><td>Brown University Medical Student</td></tr>
+            <tr><td>Victoria Yuan</td><td>UCLA Medical Student</td></tr>
+            <tr><td>Meenal Rawlani</td><td>Programmer/Analyst</td></tr>
+            <tr><td>Hirotaka Ieki</td><td>Postdoctoral Fellow, Cardiologist</td></tr>
+            <tr><td>David Choi</td><td>Software Engineer</td></tr>
+            <tr><td>Dhawal Modi</td><td>Software Engineer</td></tr>
+            <tr><td>Dilek Yalcinkaya</td><td>Postdoctoral Fellow</td></tr>
+            <tr><td>Rishi Trivedi</td><td>Cardiology Fellow</td></tr>
+            <tr><td>Ruiyang Chen</td><td>UCLA Bioengineering PhD Student</td></tr>
+            <tr><td>Jay Kim</td><td>Research Assistant</td></tr>
+            <tr><td>Sahir</td><td>Research Assistant</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-<div class="row txt">
-  <div class="col-md-3 stitle">About</div>
-  <div class="col-md-7">
-      
-<p> Our mission is to improve cardiovascular diagnosis and disease detection using computer vision and artificial intelligence. Our group works on applications of deep learning, computer vision, and the statistical analysis of large datasets within cardiovascular medicine. We focus on AI model development (see section 'Precision Phenotyping'), AI model understanding (see section 'Interpretable Medical AI'), and AI model deployment and implementation (see section 'AI Clinical Trials'). We are interested in all forms of cardiovascular data, including ECG, MRI, radiological imaging, and particicularly interested in novel insights from pre-existing data.Our work has been published in Nature, Nature Medicine, NEJM AI, Circulation, JAMA Cardiology, EHJ, and other scientific venues. 
-</p>
-	<p>
-I am a cardiologist and researcher in <a href="https://divisionofresearch.kaiserpermanente.org/researchers/ouyang-david/"> Division of Research</a> at Kaiser Permanente Northern California. I am also an adjunct <a href = "https://researchers.cedars-sinai.edu/David.Ouyang/"> Assistant Professor </a> at the Smidt Heart Institute at Cedars-Sinai. As a physician-scientist and statistician with focus on cardiology and imaging, I majored in statistics at Rice University, obtained my MD at UCSF, and received post-graduate medical education in internal medicine, cardiology, and a postdoc in computer science and biomedical data science at Stanford University. I am also a Deputy Editor at <a href = "https://ai.nejm.org/"> NEJM AI </a> and Chair of the <a href = "https://www.asecho.org/practice-clinical-resources/imageguideecho-registry/"> ImageGuideRegistry </a> for the American Society of Echocardiography. </p> 
-	    
-  </div>
-</div>
-	
-<div class="row txt">
-  <div class="col-md-3 stitle">Research</div>
-  <div class="col-md-7">
-		<p>
-Our group works on multi-modal datasets, leveraging EHR, ECG, echo, and MRI data for a broad perspective on cardiovascular disease. Our lab members bring expertise from a wide range of backgrounds ranging from physics, mechanical engineering, computer science to cardiology, anesthesia, and internal medicine. 
-</p>
-<p>The best part of the job are the poeple I get work with. I have the good fortune of working with a great group of motivated, talented, and creative individuals from a wide range of backgrounds. </p> <p> Members of the lab include: 
-	  
-	
-	
-	<li> Milos Vukadinovic, UCLA Bioengineering PhD Student
-	</li>
-	<li> Yuki Sahashi, Postdoctoral Fellow, Electrophysiologist 
-	</li>
-	<li> Justin Rhee, Brown University Medical Student
-	</li>
-	<li> Victoria Yuan, UCLA Medical Student,  Sarnoff Fellow
-	</li>
-	<li> Meenal Rawlani, Data Scientist
-	</li>
-	<li> Hirotaka Ieki, Postdoctoral Fellow, Cardiologist 
-	</li>
-	<li> David Choi, Data Scientist
-	</li>
-	<li> Dhawal Modi, Data Scientist
-	</li>
-	<li> Dilek Yalcinkaya, Postdoctoral Fellow
-	</li>
-	<li> Zara Fatima, Project Manager
-	</li>
-  <br/>
-Alumni of the lab include:
-	<li> Kai Christensen, Software Engineer, Roboflow
-	</li>
-	<li> Christina Binder-Rodriguez, Cardiologist, Medical University of Vienna
-	</li>
-	<li> Yu Sun, Assistant Professor, ECE, Johns Hopkins University
-	</li>
-	<li> Grant Duffy, Data Scientist, Meta
-	</li>
-	<li> I-Min Chiu, Data Scientist, Apple
-	</li>
-	<li> Weston Hughes, Data Scientist, Columbia
-	</li>
-	<li> Ting Qi, Software Engineer, Amazon
-	</li>
-	<li> John Theurer, Software Engineer, Zither Labs 
-	</li>
-	<li> Amey Vrudhula, Internal Medicine Resident, Stanford 
-	</li>
-	<li> Gauri Renjith, Undergraduate, UCSD
-	</li>
-	<li> Ishan Jain, Undergraduate, UCSB
-	</li>
-	
-</p>
-	<p> If you're interested in improving cardiovascular imaging and cardiovascular care, please email me!</p>
+      <div class="members-group">
+        <h3>Alumni</h3>
+        <table class="members-table">
+          <thead><tr><th>Name</th><th>Role</th><th>Now</th></tr></thead>
+          <tbody>
+            <tr><td>Kai Christensen</td><td>Software Engineer</td><td>Roboflow</td></tr>
+            <tr><td>Christina Binder-Rodriguez</td><td>Research Fellow</td><td>Cardiologist, Medical University of Vienna</td></tr>
+            <tr><td>Yu Sun</td><td>Postdoctoral Fellow</td><td>Assistant Professor, Johns Hopkins University</td></tr>
+            <tr><td>Grant Duffy</td><td>Data Scientist</td><td>Meta</td></tr>
+            <tr><td>I-Min Chiu</td><td>Data Scientist</td><td>Apple</td></tr>
+            <tr><td>Weston Hughes</td><td>Data Scientist</td><td>Columbia</td></tr>
+            <tr><td>Ting Qi</td><td>Data Specialist</td><td>Amazon</td></tr>
+            <tr><td>John Theurer</td><td>Data Scientist</td><td>Zither Labs</td></tr>
+            <tr><td>Amey Vrudhula</td><td>Sarnoff Research Fellow</td><td>Internal Medicine Resident, Stanford</td></tr>
+            <tr><td>Gauri Renjith</td><td>Undergraduate Researcher</td><td>UCSD</td></tr>
+            <tr><td>Ishan Jain</td><td>Undergraduate Researcher</td><td>UCSB</td></tr>
+            <tr><td>Sonya Chung</td><td>Senior Administrative Assistant</td><td></td></tr>
+            <tr><td>Zara Fatima</td><td>Project Manager</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
 
-	   
-		    <br/>
-  </div>
-</div>
+      <p class="cta">If you're interested in improving cardiovascular imaging and cardiovascular care, please email me!</p>
+    </div>
+  </section>
 
-<br/>
+  <!-- Publications -->
+  <section class="section">
+    <div class="section-label">Publications</div>
+    <div class="section-content">
 
-<div class="row txt">
-  <div class="col-md-3 stitle"> Select Publications</div>
-  <div class="col-md-7">
-    <p>
-      Precision Phenotyping
-	 <ul>
-		<li>
-	Ouyang D, He B, Ghorbani A, Langlotz CP, Heidenreich PA, Harrington RA, Liang DH, Ashley EA, Zou JY.  <a href="https://www.nature.com/articles/s41586-020-2145-8">“Video-based artificial intelligence for beat-to-beat assessment of cardiac function ”</a>  <b> Nature.</b> 
-	</li>
-	<li>
-	  Duffy G*, Cheng PP*, Yuan*,He B, Kwan AC, Shun-Shin MJ, Alexander KM, Ebinger J, Lungren MP, Rader F, Liang DH, Schnittger I, Ashley EA, Zou JY, Patel J, Witteles R, Cheng S, Ouyang D. <a href="https://jamanetwork.com/journals/jamacardiology/fullarticle/2789370">“High-Throughput Precision Phenotyping of Left Ventricular Hypertrophy With Cardiovascular Deep Learning.”</a> <b> JAMA Cardiology </b> 
-	</li>
-	<li>
-	  Christensen M, Vukadinovic M, Yuan N, Ouyang D. <a href="https://www.nature.com/articles/s41591-024-02959-y">“Vision–language foundation model for echocardiogram interpretation”.</a> <b> Nature Medicine</b> 
-	</li>
-
-	<li>
-	  Sahashi Y, Vukadinovic M, Amrollahi F, Trivedi H, Rhee J, Chen JH, Cheng S, Ouyang D, Kwan AC. <a href="https://ai.nejm.org/doi/full/10.1056/AIoa2400948">“Opportunistic Screening of Chronic Liver Disease with Deep Learning Enhanced Echocardiography”.</a> <b> NEJM AI </b>
-	</li>
+      <div class="pub-category">Precision Phenotyping</div>
+      <ul class="pub-list">
+        <li><span class="authors">Ouyang D, He B, Ghorbani A, Langlotz CP, Heidenreich PA, Harrington RA, Liang DH, Ashley EA, Zou JY.</span> <a href="https://www.nature.com/articles/s41586-020-2145-8">"Video-based artificial intelligence for beat-to-beat assessment of cardiac function."</a> <span class="venue">Nature.</span></li>
+        <li><span class="authors">Duffy G*, Cheng PP*, Yuan*, He B, Kwan AC, Shun-Shin MJ, Alexander KM, Ebinger J, Lungren MP, Rader F, Liang DH, Schnittger I, Ashley EA, Zou JY, Patel J, Witteles R, Cheng S, Ouyang D.</span> <a href="https://jamanetwork.com/journals/jamacardiology/fullarticle/2789370">"High-Throughput Precision Phenotyping of Left Ventricular Hypertrophy With Cardiovascular Deep Learning."</a> <span class="venue">JAMA Cardiology.</span></li>
+        <li><span class="authors">Christensen M, Vukadinovic M, Yuan N, Ouyang D.</span> <a href="https://www.nature.com/articles/s41591-024-02959-y">"Vision–language foundation model for echocardiogram interpretation."</a> <span class="venue">Nature Medicine.</span></li>
+        <li><span class="authors">Sahashi Y, Vukadinovic M, Amrollahi F, Trivedi H, Rhee J, Chen JH, Cheng S, Ouyang D, Kwan AC.</span> <a href="https://ai.nejm.org/doi/full/10.1056/AIoa2400948">"Opportunistic Screening of Chronic Liver Disease with Deep Learning Enhanced Echocardiography."</a> <span class="venue">NEJM AI.</span></li>
       </ul>
-    </p>
-  </div></div>
-	
-	
-<br/>
 
-<div class="row txt">
-<div class="col-md-3 stitle"> </div>
-	 <div class="col-md-7">
-    <p>
-      AI Clinical Trials and Deployment
-	<ul>
-		
-		 		<li> 
-	He B, Kwan AC, Cho JH, Yuan N, Pollick C, Shiota T, Ebinger J. Bello NA, Wei J, Josan K, Duffy G, Jujjavarapu M, Siegel R, Cheng S, Zou JY, Ouyang D. <a href="https://www.nature.com/articles/s41586-023-05947-3">“EchoNet-RCT: Blinded, Randomized Controlled Trial of Sonographer vs. Artificial Intelligence Assessment of Cardiac Function.” </a> <b>Nature  </b> 
-	</li>
- <li>
-	  Wu E, Wu K, Daneshjou R, Ouyang D, Ho D, Zou JY. <a href="https://www.nature.com/articles/s41591-021-01312-x">“How medical AI devices are evaluated: limitations and recommendations from an analysis of FDA approvals.”</a> <b> Nature Medicine </b> 
-	</li>
-
-	<li>
-<b>  Ongoing </b>, <a href="https://clinicaltrials.gov/ct2/show/NCT05139797">“Artificial Intelligence Guided Echocardiographic Screening of Rare Diseases (EchoNet-Screening).”</a>
-	</li>
+      <div class="pub-category">AI Clinical Trials and Deployment</div>
+      <ul class="pub-list">
+        <li><span class="authors">He B, Kwan AC, Cho JH, Yuan N, Pollick C, Shiota T, Ebinger J, Bello NA, Wei J, Josan K, Duffy G, Jujjavarapu M, Siegel R, Cheng S, Zou JY, Ouyang D.</span> <a href="https://www.nature.com/articles/s41586-023-05947-3">"EchoNet-RCT: Blinded, Randomized Controlled Trial of Sonographer vs. Artificial Intelligence Assessment of Cardiac Function."</a> <span class="venue">Nature.</span></li>
+        <li><span class="authors">Wu E, Wu K, Daneshjou R, Ouyang D, Ho D, Zou JY.</span> <a href="https://www.nature.com/articles/s41591-021-01312-x">"How medical AI devices are evaluated: limitations and recommendations from an analysis of FDA approvals."</a> <span class="venue">Nature Medicine.</span></li>
+        <li><strong>Ongoing</strong>, <a href="https://clinicaltrials.gov/ct2/show/NCT05139797">"Artificial Intelligence Guided Echocardiographic Screening of Rare Diseases (EchoNet-Screening)."</a></li>
       </ul>
-    </p>
-  </div></div>
-	
-	<br>
-	
-<div class="row txt">
-<div class="col-md-3 stitle"> </div>
-	 <div class="col-md-7">
-    <p>
-      Foundation Models in Cardiovascular Medicine
-	<ul>
-		<li> 
-	Vukadinovic M, Tang X, Yuan N, Cheng P, Li D, Cheng S, He B, Ouyang D. <a href="https://arxiv.org/abs/2410.09704">“EchoPrime: A Multi-Video View-Informed Vision-Language Model for Comprehensive Echocardiography Interpretation.”</a> <b>Preprint </b> 
-	</li>	
-<li> 
-	Christensen K, Vukadinovic M, Yuan N,  Ouyang D. <a href="https://www.nature.com/articles/s41586-023-05947-3">“Vision-language foundation model for echocardiogram interpretation”</a> <b> Nature Medicine </b> 
-	</li>
- <li>
-	  He B, Vukadinovic M, Duffy G, Zou JY, Ouyang D. <a href="https://ai.stanford.edu/~bryanhe/publications//multimodal.pdf">“Multi-Modal Contrastive Learning across Cardiac Diagnostics.”</a> <b> Preprint </b> 
-	</li>
+
+      <div class="pub-category">Foundation Models in Cardiovascular Medicine</div>
+      <ul class="pub-list">
+        <li><span class="authors">Vukadinovic M, Chiu I-M, Tang X, Yuan N, Chen T-Y, Cheng P, Li D, Cheng S, He B, Ouyang D.</span> <a href="https://www.nature.com/articles/s41586-025-09850-x">"Comprehensive echocardiogram evaluation with view primed vision language AI."</a> <span class="venue">Nature.</span></li>
+        <li><span class="authors">Christensen K, Vukadinovic M, Yuan N, Ouyang D.</span> <a href="https://www.nature.com/articles/s41591-024-02959-y">"Vision-language foundation model for echocardiogram interpretation."</a> <span class="venue">Nature Medicine.</span></li>
+        <li><span class="authors">He B, Vukadinovic M, Duffy G, Zou JY, Ouyang D.</span> <a href="https://ai.stanford.edu/~bryanhe/publications//multimodal.pdf">"Multi-Modal Contrastive Learning across Cardiac Diagnostics."</a> <span class="venue">Preprint.</span></li>
       </ul>
-    </p>
-  </div></div>
-	
-	<div class="row txt">
-<div class="col-md-3 stitle"> </div>
-	 <div class="col-md-7">
-    <p>
 
-	    <br>
-      Interpreting Medical AI
-	<ul>
-	<li>
-	  Gorbhani A, Ouyang D, Abid A, He B, Chen JH, Harrington RA, Liang DH, Ashley EA, Zou JY. <a href="https://www.nature.com/articles/s41746-019-0216-8.pdf"> “Deep Learning Interpretation of Echocardiograms.”</a> <b> npj Digital Medicine.</b> 
-	</li>
-	<li>
-	Duffy G, Clarke SL, Christensen M, He B, Yuan N, Cheng S, Ouyang D <a href=https://www.nature.com/articles/s41746-022-00720-8">“Confounders mediate AI prediction of demographics in medical imaging”</a>  <b> npj Digital Medicine.</b> ” 
-	</li>
-		<li>
-	  Weston HJ, Yuan N, He B, Ouyang J, Ebinger J, Botting P, Lee J, Theurer J, Tooley JE, Neiman K, Lungren MP, Liang D, Schnittger I, Harrington B, Chen JH, Ashley EA, Cheng S, Ouyang D, Zou JY.  <a href="https://www.thelancet.com/journals/ebiom/article/PIIS2352-3964(21)00406-0/fulltext">“Deep learning evaluation of biomarkers from echocardiogram videos.”</a> <b> EbioMedicine </b>   
-	</li>	
-	<li>
-	Vrudhula A, Hughes JW, Yuan N, Ouyang D.  <a href="https://ai.nejm.org/doi/abs/10.1056/AIcs2300176">“The Impact of Task Set-up in Algorithm Design: Regression versus Classification.”</a>  <b> New England Journal of Medicine AI</b> ”  
-	</li>
-		
+      <div class="pub-category">Interpreting Medical AI</div>
+      <ul class="pub-list">
+        <li><span class="authors">Ghorbani A, Ouyang D, Abid A, He B, Chen JH, Harrington RA, Liang DH, Ashley EA, Zou JY.</span> <a href="https://www.nature.com/articles/s41746-019-0216-8.pdf">"Deep Learning Interpretation of Echocardiograms."</a> <span class="venue">npj Digital Medicine.</span></li>
+        <li><span class="authors">Duffy G, Clarke SL, Christensen M, He B, Yuan N, Cheng S, Ouyang D.</span> <a href="https://www.nature.com/articles/s41746-022-00720-8">"Confounders mediate AI prediction of demographics in medical imaging."</a> <span class="venue">npj Digital Medicine.</span></li>
+        <li><span class="authors">Weston HJ, Yuan N, He B, Ouyang J, Ebinger J, Botting P, Lee J, Theurer J, Tooley JE, Neiman K, Lungren MP, Liang D, Schnittger I, Harrington B, Chen JH, Ashley EA, Cheng S, Ouyang D, Zou JY.</span> <a href="https://www.thelancet.com/journals/ebiom/article/PIIS2352-3964(21)00406-0/fulltext">"Deep learning evaluation of biomarkers from echocardiogram videos."</a> <span class="venue">EBioMedicine.</span></li>
+        <li><span class="authors">Vrudhula A, Hughes JW, Yuan N, Ouyang D.</span> <a href="https://ai.nejm.org/doi/abs/10.1056/AIcs2300176">"The Impact of Task Set-up in Algorithm Design: Regression versus Classification."</a> <span class="venue">New England Journal of Medicine AI.</span></li>
       </ul>
-    </p>
-  </div></div>
-	
-<div class="row txt">
-<div class="col-md-3 stitle"> </div>
-	 <div class="col-md-7">
-    <p>
-      AI Echocardiography
-	
-	 <ul>
 
-	<li> 
-	Vrudhula A, Duffy D, Vukadinovic M, Liang D, Cheng S, Ouyang D. <a href="https://www.ahajournals.org/doi/10.1161/CIRCULATIONAHA.124.069047">“High Throughput Deep Learning Detection of Mitral Regurgitation.”</a> <b>Circulation</b> 
-	</li>
-	<li> 
-	Vrudhula A, Vukadinovic M, Haeffle C, Kwan AC, Berman D, Liang D,  Siegel R, Cheng S, Ouyang D. <a href="https://jamanetwork.com/journals/jamacardiology/fullarticle/2832554">“Automated Deep Learning Phenotyping of Tricuspid Regurgitation in Echocardiography.”</a> <b>JAMA Cardiology </b> 
-	</li>
-
-		 	<li> 
-	Holste G, Oikonomou E, ... , Khera R. <a href="https://academic.oup.com/eurheartj/article-abstract/44/43/4592/7248551">“Severe aortic stenosis detection by deep learning applied to echocardiography.”</a> <b>European Heart Journal </b> 
-	</li>
-
-		 	<li> 
-	Kwan AC, Chang EW, Jain I, Theurer J, Tang X, Francisco, ..., Ouyang D. <a href="https://www.medrxiv.org/content/10.1101/2024.06.22.24309332v1">“Deep Learning-derived Myocardial Strain.”</a> <b>JACC: Cardiovascular Imaging  </b> 
-	</li>
-
-		 
-		 <li> 
-	He B, Dash D, Duanmu YY, Tan TX, Ouyang D, Zou JY. <a href="https://www.sciencedirect.com/science/article/pii/S0736467923000525">“AI-enabled assessment of cardiac function and video quality in emergency department point-of-care echocardiograms.”</a> <b>The Journal of Emergency Medicine</b> February 2, 2024
-	</li>
-		 <li> 
-	Reddy CD, Lopez L, Ouyang D, Zou JY, He B. <a href="https://www.sciencedirect.com/science/article/pii/S0894731723000688">“Video-based deep learning for automated assessment of left ventricular ejection fraction in pediatric patients.”</a> <b>Journal of the American Society of Echocardiography </b> 
-	</li>
-		 
+      <div class="pub-category">AI Echocardiography</div>
+      <ul class="pub-list">
+        <li><span class="authors">Vrudhula A, Duffy D, Vukadinovic M, Liang D, Cheng S, Ouyang D.</span> <a href="https://www.ahajournals.org/doi/10.1161/CIRCULATIONAHA.124.069047">"High Throughput Deep Learning Detection of Mitral Regurgitation."</a> <span class="venue">Circulation.</span></li>
+        <li><span class="authors">Vrudhula A, Vukadinovic M, Haeffle C, Kwan AC, Berman D, Liang D, Siegel R, Cheng S, Ouyang D.</span> <a href="https://jamanetwork.com/journals/jamacardiology/fullarticle/2832554">"Automated Deep Learning Phenotyping of Tricuspid Regurgitation in Echocardiography."</a> <span class="venue">JAMA Cardiology.</span></li>
+        <li><span class="authors">Holste G, Oikonomou E, ..., Khera R.</span> <a href="https://academic.oup.com/eurheartj/article-abstract/44/43/4592/7248551">"Severe aortic stenosis detection by deep learning applied to echocardiography."</a> <span class="venue">European Heart Journal.</span></li>
+        <li><span class="authors">Kwan AC, Chang EW, Jain I, Theurer J, Tang X, Francisco, ..., Ouyang D.</span> <a href="https://www.medrxiv.org/content/10.1101/2024.06.22.24309332v1">"Deep Learning-derived Myocardial Strain."</a> <span class="venue">JACC: Cardiovascular Imaging.</span></li>
+        <li><span class="authors">He B, Dash D, Duanmu YY, Tan TX, Ouyang D, Zou JY.</span> <a href="https://www.sciencedirect.com/science/article/pii/S0736467923000525">"AI-enabled assessment of cardiac function and video quality in emergency department point-of-care echocardiograms."</a> <span class="venue">The Journal of Emergency Medicine.</span></li>
+        <li><span class="authors">Reddy CD, Lopez L, Ouyang D, Zou JY, He B.</span> <a href="https://www.sciencedirect.com/science/article/pii/S0894731723000688">"Video-based deep learning for automated assessment of left ventricular ejection fraction in pediatric patients."</a> <span class="venue">Journal of the American Society of Echocardiography.</span></li>
       </ul>
-    </p>
-  </div></div>
-	
-<br/>
-	
-	
-<div class="row txt">
-<div class="col-md-3 stitle"> </div>
-	 <div class="col-md-7">
-    <p>
-      Healthcare Data Science 
-	<ul>
-	<li>
-Ouyang D, Gulati G, Ha R, Banerjee D. <a href="https://www.jhltonline.org/article/S1053-2498(18)31438-4/pdf">“Incidence of Temporary Mechanical Circulatory Support Prior to Heart Transplantation and Impact on Post-Transplant Outcomes.”</a>  <b> Journal of Heart and Lung Transplantation </b> 
-	</li>
-	<li> 
-	Ouyang D, Tisdale R, Cheng P, Chi J, Ashley EA, Chen JH. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6082214/">“Acetaminophen or Tylenol? A Retrospective Analysis of Medication Digital Communication Practices.”</a> <b> Journal of General Internal Medicine</b> 
-	</li>
-	<li>
-Ouyang D, Chen J, Krishnan G, Hom J, Witteles R, Chi J. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4996740/">“Patient Outcomes When Housestaff Exceed Eighty Hours per Week.”</a> <b>  American Journal of Medicine. </b> 
-	</li>
-	<li>
-Ouyang D, Chen J, Hom J, Chi J. <a href="https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2472946">“How Much Time Do Internal Medicine Residents Spend on the Computer?: An Electronic Audit of an Inpatient Service.”</a> <b> JAMA Internal Medicine.</b>,
-	</li>
-	<li>
-Ouyang D, I El-Sayed, SS Yom. <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/lary.24578">National Trends in Surgery for Sinonasal Malignancy and the Effect of Hospital Volume on Short-Term Outcome.</a> <b> Laryngoscope.</b> 
-	 </li>
+
+      <div class="pub-category">Healthcare Data Science</div>
+      <ul class="pub-list">
+        <li><span class="authors">Ouyang D, Gulati G, Ha R, Banerjee D.</span> <a href="https://www.jhltonline.org/article/S1053-2498(18)31438-4/pdf">"Incidence of Temporary Mechanical Circulatory Support Prior to Heart Transplantation and Impact on Post-Transplant Outcomes."</a> <span class="venue">Journal of Heart and Lung Transplantation.</span></li>
+        <li><span class="authors">Ouyang D, Tisdale R, Cheng P, Chi J, Ashley EA, Chen JH.</span> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6082214/">"Acetaminophen or Tylenol? A Retrospective Analysis of Medication Digital Communication Practices."</a> <span class="venue">Journal of General Internal Medicine.</span></li>
+        <li><span class="authors">Ouyang D, Chen J, Krishnan G, Hom J, Witteles R, Chi J.</span> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4996740/">"Patient Outcomes When Housestaff Exceed Eighty Hours per Week."</a> <span class="venue">American Journal of Medicine.</span></li>
+        <li><span class="authors">Ouyang D, Chen J, Hom J, Chi J.</span> <a href="https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2472946">"How Much Time Do Internal Medicine Residents Spend on the Computer?: An Electronic Audit of an Inpatient Service."</a> <span class="venue">JAMA Internal Medicine.</span></li>
+        <li><span class="authors">Ouyang D, El-Sayed I, Yom SS.</span> <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/lary.24578">"National Trends in Surgery for Sinonasal Malignancy and the Effect of Hospital Volume on Short-Term Outcome."</a> <span class="venue">Laryngoscope.</span></li>
       </ul>
-    </p>
-  </div></div>
 
-</br>
-	
-<div class="row txt">
-<div class="col-md-3 stitle"> </div>
-<div class="col-md-7">
-    <p>
-      A complete list of publications is available at <a href="https://scholar.google.com/citations?user=on2DUKoAAAAJ&hl=en">Google Scholar</a>
-<br/>
-</div></div>
-
+      <p class="scholar-link">A complete list of publications is available at <a href="https://scholar.google.com/citations?user=on2DUKoAAAAJ&hl=en">Google Scholar</a>.</p>
+    </div>
+  </section>
 
 </div>
-
-<br/>
-<br/>
-<br/>
-<br/>
-
 </body>
 </html>
