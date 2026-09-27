@@ -125,19 +125,20 @@ body{margin:0;background:
 /* task coverage — ASE framework */
 .cov{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,1.2vw,12px);margin-top:clamp(8px,1.6vw,14px)}
 .dom.wide{grid-column:1/-1}
-.dom{border:1px solid var(--line);border-radius:12px;padding:clamp(9px,1.4vw,14px);background:var(--panel);
+.dom{border:1px solid var(--line);border-radius:12px;padding:clamp(7px,1.1vw,11px);background:var(--panel);
   opacity:.34;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
 .dom.on{opacity:1;transform:none}
 .dom .dh{font-family:var(--disp);font-weight:600;font-size:clamp(.84rem,1.55vw,1.02rem);color:var(--ink);line-height:1.08}
 .dom .ase{font-family:var(--mono);font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-top:3px}
-.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
-.chip{font-family:var(--mono);font-size:.6rem;letter-spacing:.01em;border-radius:6px;padding:3px 7px;
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chip{font-family:var(--mono);font-size:.6rem;letter-spacing:.01em;border-radius:6px;padding:2px 6px;
   display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:#fff;color:var(--muted);
-  transition:background .4s ease,border-color .4s ease,color .4s ease}
-.chip.done.on{background:var(--heart);border-color:var(--heart);color:#fff}
-.chip.done.on .yr{color:rgba(255,255,255,.82)}
+  transition:filter .15s ease}
+a.chip{text-decoration:none;cursor:pointer}
+.chip.done{background:var(--heart);border-color:var(--heart);color:#fff}
+.chip.done:hover{filter:brightness(1.18)}
+.chip.done:focus-visible{outline:2px solid var(--pulse);outline-offset:2px}
 .chip.todo{background:transparent;border:1px dashed var(--todo);color:var(--todo-ink)}
-.chip .yr{font-size:.9em;color:var(--dim)}
 .covleg{display:flex;gap:16px;flex-wrap:wrap;margin-top:clamp(10px,1.8vw,16px);font-family:var(--mono);
   font-size:.64rem;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
 .covleg span{display:inline-flex;align-items:center;gap:7px}
@@ -402,66 +403,97 @@ body{margin:0;background:
     scaleRO.observe(host);
   }
 
-  /* Echo-report elements mapped to what the lab's AI does (year / ✓) vs open gaps (gray).
-     Grounded in published papers and released github.com/echonet code, incl.
-     echonet/measurements Segmentation (LA/RA area + MV·AV·LVOT·RVOT·PV VTI). */
+  /* Task coverage by cardiac domain. Boxes overlap: one model can check items in
+     several sections. Each done box links to its paper / repo (hover shows the
+     reference); gray boxes are open gaps. Grounded in published work + github.com/echonet. */
+  var REF = {
+    dynamic:{u:'https://www.nature.com/articles/s41586-020-2145-8', c:'EchoNet-Dynamic — Nature 2020'},
+    lvh:{u:'https://jamanetwork.com/journals/jamacardiology/fullarticle/2789370', c:'EchoNet-LVH — JAMA Cardiology 2022'},
+    meas:{u:'https://www.jacc.org/doi/10.1016/j.jacc.2025.07.053', c:'EchoNet-Measurements — JACC 2025'},
+    seg:{u:'https://github.com/echonet/measurements', c:'echonet/measurements — Segmentation module'},
+    rv:{u:'https://github.com/echonet/RV', c:'EchoNet-RV — github.com/echonet/RV'},
+    diast:{u:'https://github.com/echonet/diastology', c:'echonet/diastology — 2016 ASE grading'},
+    strain:{u:'https://github.com/echonet/strain', c:'echonet/strain — LV global longitudinal strain'},
+    depth:{u:'https://github.com/echonet/depthmap', c:'echonet/depthmap — 3D LV volume'},
+    prime:{u:'https://www.nature.com/articles/s41586-025-09850-x', c:'EchoPrime — Nature 2025'},
+    mr:{u:'https://www.ahajournals.org/doi/10.1161/CIRCULATIONAHA.124.069047', c:'EchoNet-MR — Circulation 2024'},
+    tr:{u:'https://pubmed.ncbi.nlm.nih.gov/40238103/', c:'EchoNet-TR — JAMA Cardiology 2025'},
+    ar:{u:'https://www.medrxiv.org/content/10.1101/2025.03.18.25323918v1', c:'EchoNet-AR — medRxiv 2025'},
+    as:{u:'https://github.com/echonet/AS', c:'EchoNet-AS — github.com/echonet/AS'},
+    ms:{u:'https://github.com/echonet', c:'EchoNet-MS — github.com/echonet'},
+    peri:{u:'https://academic.oup.com/ehjdh/article/6/6/1216/8262550', c:'EchoNet-Pericardium — EHJ Digital Health 2025'}
+  };
   var DOMAINS = [
-    {d:'Measurements & segmentation', ase:'ASE report · quantification', wide:true, items:[
-      {c:'LVEF', n:'Ejection fraction', y:2020},
-      {c:'LV volumes (EDV/ESV)', n:'Method of discs', y:2020},
-      {c:'LV segmentation', n:'Frame-by-frame LV tracing', y:2020},
-      {c:'IVS / LVID / LVPW', n:'Wall thickness & chamber size', y:2022},
-      {c:'LV mass', n:'Derived from linear measures', y:2022},
-      {c:'LA diameter', n:'Left atrial dimension', y:2025},
-      {c:'LA volume (LAVi)', n:'Indexed LA volume', y:2025},
-      {c:'Aortic root', n:'Sinuses of Valsalva', y:2025},
-      {c:'Ascending aorta', n:'Ascending aortic diameter', y:2025},
-      {c:'PA diameter', n:'Main pulmonary artery', y:2025},
-      {c:'RV basal diameter', n:'RV base', y:2025},
-      {c:'IVC diameter', n:'Inferior vena cava', y:2025},
-      {c:'RV segmentation + RVFAC', n:'RV tracing & fractional area change', y:2026},
-      {c:'LA / RA area', n:'Chamber-area segmentation', y:2025},
-      {c:'Peak velocities: AV·TR·MR·LVOT', n:'CW/PW Doppler Vmax', y:2025},
-      {c:'Tissue Doppler e′ (septal·lateral)', n:'Mitral annular velocities', y:2025},
-      {c:'Mitral E / A', n:'Transmitral inflow', y:2025},
-      {c:'VTI: MV·AV·LVOT·RVOT·PV', n:'Doppler velocity-time integrals', y:2025},
-      {c:'GLS strain', n:'LV global longitudinal strain', y:true},
-      {c:'3D LV volume', n:'Depth-map method of discs', y:true},
-      {c:'TAPSE', n:'Not automated — confirmed absent from EchoNet-Measurements'},
-      {c:'RV free-wall strain', n:'Not automated'},
-      {c:'RA volume', n:'Right atrial volume'},
-      {c:'E/e′ ratio', n:'Explicit filling-pressure ratio'},
-      {c:'PASP / RVSP', n:'Pulmonary pressure from TR jet'},
-      {c:'Stroke volume / CO', n:'From LVOT VTI × area'},
-      {c:'Valve area (AVA/MVA)', n:'Planimetry / continuity'},
-      {c:'Mean gradients', n:'CW Doppler mean gradient'},
-      {c:'IVC collapsibility', n:'Respiratory collapse'}
+    {d:'Chambers', ase:'structure & size', items:[
+      {c:'LV segmentation', r:'dynamic'},
+      {c:'LV size & wall thickness', r:'lvh'},
+      {c:'LA size', r:'meas'},
+      {c:'RV size + segmentation', r:'rv'},
+      {c:'LA / RA area', r:'seg'},
+      {c:'RA volume'},
+      {c:'3D chamber volumes'}
     ]},
-    {d:'Diastolic function', ase:'ASE · Nagueh 2016', items:[
-      {c:'Diastolic grade', n:'2016 ASE grading pipeline', y:2025},
-      {c:'Filling-pressure call', n:'Elevated LAP integration'}
+    {d:'Chamber assessment', ase:'function', items:[
+      {c:'LV ejection fraction', r:'dynamic'},
+      {c:'LV volumes (EDV/ESV)', r:'dynamic'},
+      {c:'RV function (RVFAC)', r:'rv'},
+      {c:'Diastolic grade', r:'diast'},
+      {c:'GLS strain', r:'strain'},
+      {c:'Regional wall motion'},
+      {c:'TAPSE · RV strain'},
+      {c:'E/e′ filling pressure'}
     ]},
-    {d:'Valve regurgitation', ase:'ASE · Zoghbi 2017', items:[
-      {c:'Mitral (MR)', n:'MR severity', y:2024},
-      {c:'Tricuspid (TR)', n:'TR severity', y:2025},
-      {c:'Aortic (AR)', n:'AR severity', y:2025},
-      {c:'Pulmonic (PR)', n:'PR severity'},
-      {c:'Quant. EROA / RegVol', n:'PISA / vena contracta'}
+    {d:'Valves', ase:'regurgitation & stenosis', items:[
+      {c:'Mitral regurg (MR)', r:'mr'},
+      {c:'Tricuspid regurg (TR)', r:'tr'},
+      {c:'Aortic regurg (AR)', r:'ar'},
+      {c:'Aortic stenosis (AS)', r:'as'},
+      {c:'Mitral stenosis (MS)', r:'ms'},
+      {c:'Valve peak velocities', r:'meas'},
+      {c:'Pulmonic regurg (PR)'},
+      {c:'Valve area / gradient'},
+      {c:'EROA / RegVol'},
+      {c:'Prosthetic valves'}
     ]},
-    {d:'Valve stenosis', ase:'ASE · Baumgartner 2017', items:[
-      {c:'Aortic (AS)', n:'AS severity + AV Vmax', y:2022},
-      {c:'Mitral (MS)', n:'MS severity', y:2025},
-      {c:'Valve area (planimetry)', n:'AVA / MVA'},
-      {c:'Prosthetic valves', n:'Prosthesis assessment'}
+    {d:'Disease & whole-study', ase:'tissue · views · report', items:[
+      {c:'Amyloid', r:'lvh'},
+      {c:'HCM', r:'lvh'},
+      {c:'Pericardial effusion', r:'peri'},
+      {c:'View & quality', r:'prime'},
+      {c:'Full report — EchoPrime', r:'prime'},
+      {c:'Masses · thrombus'},
+      {c:'Congenital'}
     ]},
-    {d:'Tissue & whole-study AI', ase:'assessment · views · report', items:[
-      {c:'Amyloid', n:'Cardiac amyloidosis', y:2021},
-      {c:'HCM', n:'Hypertrophic CM', y:2023},
-      {c:'Pericardial effusion', n:'Effusion / tamponade', y:2025},
-      {c:'View & quality', n:'View classification & image quality', y:2022},
-      {c:'Full report — EchoPrime', n:'Comprehensive interpretation', y:2025},
-      {c:'Regional wall motion', n:'Segmental WMA scoring'},
-      {c:'Masses · congenital', n:'Thrombus, tumors, congenital'}
+    {d:'Measurements & segmentation', ase:'quantification', wide:true, items:[
+      {c:'LVEF', r:'dynamic'},
+      {c:'LV volumes (EDV/ESV)', r:'dynamic'},
+      {c:'LV segmentation', r:'dynamic'},
+      {c:'IVS / LVID / LVPW', r:'lvh'},
+      {c:'LV mass', r:'lvh'},
+      {c:'LA diameter', r:'meas'},
+      {c:'LA volume (LAVi)', r:'diast'},
+      {c:'Aortic root', r:'meas'},
+      {c:'Ascending aorta', r:'meas'},
+      {c:'PA diameter', r:'meas'},
+      {c:'RV basal diameter', r:'meas'},
+      {c:'IVC diameter', r:'meas'},
+      {c:'RV segmentation + RVFAC', r:'rv'},
+      {c:'LA / RA area', r:'seg'},
+      {c:'Peak velocities: AV·TR·MR·LVOT', r:'meas'},
+      {c:'Tissue Doppler e′ (septal·lateral)', r:'meas'},
+      {c:'Mitral E / A', r:'meas'},
+      {c:'VTI: MV·AV·LVOT·RVOT·PV', r:'seg'},
+      {c:'GLS strain', r:'strain'},
+      {c:'3D LV volume', r:'depth'},
+      {c:'TAPSE'},
+      {c:'RV free-wall strain'},
+      {c:'RA volume'},
+      {c:'E/e′ ratio'},
+      {c:'PASP / RVSP'},
+      {c:'Stroke volume / CO'},
+      {c:'Valve area (AVA/MVA)'},
+      {c:'Mean gradients'},
+      {c:'IVC collapsibility'}
     ]}
   ];
 
@@ -478,9 +510,9 @@ body{margin:0;background:
     var card=document.createElement('div'); card.className='dom'+(dm.wide?' wide':'');
     var chips='';
     dm.items.forEach(function(it){
-      if(it.y){ var tag = (typeof it.y==='number') ? String(it.y).slice(2)+"'" : '✓';
-        chips+='<span class="chip done" data-done="1" title="'+(it.n||'')+'"><span>'+it.c+'</span><span class="yr">'+tag+'</span></span>';
-      } else chips+='<span class="chip todo" title="'+(it.n||'')+'">'+it.c+'</span>';
+      if(it.r){ var ref=REF[it.r]||{u:'#',c:''};
+        chips+='<a class="chip done" data-done="1" href="'+ref.u+'" target="_blank" rel="noopener noreferrer" title="'+ref.c+'">'+it.c+'</a>';
+      } else chips+='<span class="chip todo" title="'+(it.n||'On the roadmap — not yet automated')+'">'+it.c+'</span>';
     });
     card.innerHTML='<div class="dh">'+dm.d+'</div><div class="ase">'+dm.ase+'</div><div class="chips">'+chips+'</div>';
     covGrid.appendChild(card);
