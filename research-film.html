@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Reading the Heart — Ouyang Lab</title>
+<meta name="description" content="A self-playing overview of the Ouyang Lab's cardiovascular-AI research. Bar heights are the number of echocardiogram videos used to train each model — view- and quality-filtered training sets, not full study counts. Task coverage is mapped to the ASE standardized echo report and its assessment &amp; quantification guidelines; colored items are published or released as open code, gray items are open gaps not yet automated.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -214,40 +215,24 @@ a.chip{text-decoration:none;cursor:pointer}
 <body>
 
 <div class="wrap">
-  <div class="mast">
-    <span class="dot" aria-hidden="true"></span>
-    <h1>Ouyang Lab — Cardiovascular AI</h1>
-    <span class="spacer"></span>
-    <span class="tag">2020 → 2026</span>
-  </div>
-
   <div class="player">
     <div class="stage" id="stage" tabindex="0" aria-label="Ouyang Lab research film. Use arrow keys to move between scenes.">
       <canvas id="wave" aria-hidden="true"></canvas>
       <div class="grid-overlay" aria-hidden="true"></div>
       <div class="vignette" aria-hidden="true"></div>
       <div class="pbar" aria-hidden="true"><i id="pb"></i></div>
-      <div class="scene-tag" id="sceneTag">01 · Intro</div>
-      <div class="scene-count" id="sceneCount">01 / 07</div>
 
-      <!-- 0 · TITLE (static — complete at rest for the first frame) -->
-      <section class="scene" data-dur="4600" data-tag="Intro">
-        <p class="eyebrow">Cardiovascular imaging × deep learning</p>
-        <h1 class="h-xl">Teaching machines<br>to read the <span class="heart-word">heart</span>.</h1>
-        <p class="lede">Video-based neural networks that reproduce expert measures of cardiac structure and function — and identify signals invisible to the human reader. Built to extend cardiac ultrasound to more patients, in more places.</p>
-      </section>
-
-      <!-- 1 · ECHO 101 -->
-      <section class="scene" data-dur="6600" data-tag="Echo 101">
-        <p class="eyebrow rise">What is echocardiography?</p>
-        <h2 class="h-lg rise d1">An <span class="cyan-word">ultrasound</span> of the beating heart.</h2>
+      <!-- 0 · WHAT IS ECHOCARDIOGRAPHY (static — complete at rest for the first frame) -->
+      <section class="scene" data-dur="7000" data-tag="Echo 101">
+        <p class="eyebrow">What is echocardiography?</p>
+        <h2 class="h-lg">An <span class="cyan-word">ultrasound</span> of the beating heart.</h2>
         <div class="facts">
-          <div class="fact rise d1"><div class="k">Pump</div><h4>Function</h4><p>How strongly the heart squeezes — ejection fraction.</p></div>
-          <div class="fact rise d2"><div class="k">Valves</div><h4>Flow</h4><p>Leak and narrowing across all four valves.</p></div>
-          <div class="fact rise d3"><div class="k">Structure</div><h4>Anatomy</h4><p>Chambers, wall thickness, and muscle disease.</p></div>
-          <div class="fact rise d4"><div class="k">Bedside</div><h4>Point-of-care</h4><p>Portable ultrasound, anywhere a patient is.</p></div>
+          <div class="fact"><div class="k">Pump</div><h4>Function</h4><p>How strongly the heart squeezes — ejection fraction.</p></div>
+          <div class="fact"><div class="k">Valves</div><h4>Flow</h4><p>Leak and narrowing across all four valves.</p></div>
+          <div class="fact"><div class="k">Structure</div><h4>Anatomy</h4><p>Chambers, wall thickness, and muscle disease.</p></div>
+          <div class="fact"><div class="k">Bedside</div><h4>Point-of-care</h4><p>Portable ultrasound, anywhere a patient is.</p></div>
         </div>
-        <p class="lede rise d4">The most common cardiac imaging test — millions of studies each year, every one dozens of videos a clinician must review.</p>
+        <p class="lede">The most common cardiac imaging test — millions of studies each year, every one dozens of videos a clinician must review.</p>
       </section>
 
       <!-- 2 · DIRECTION -->
@@ -281,7 +266,7 @@ a.chip{text-decoration:none;cursor:pointer}
 
       <!-- 6 · TASK COVERAGE (ASE framework) -->
       <section class="scene" data-dur="9000" data-tag="Coverage">
-        <p class="eyebrow rise">Task coverage — mapped to the ASE echo report</p>
+        <p class="eyebrow rise">What our models cover — and the open gaps</p>
         <h2 class="h-lg rise d1" style="font-size:clamp(1.1rem,2.9vw,1.6rem)">A systematic approach for the whole echo exam.</h2>
         <div class="covleg rise d1" style="margin:5px 0 0">
           <span><i class="sw done"></i>Published / built — click to open</span>
@@ -313,7 +298,7 @@ a.chip{text-decoration:none;cursor:pointer}
     </div>
   </div>
 
-  <p class="foot">A self-playing overview of the Ouyang Lab's cardiovascular-AI research. Bar heights are the number of echocardiogram videos used to train each model — view- and quality-filtered training sets, not full study counts. Task coverage is mapped to the ASE standardized echo report and its assessment &amp; quantification guidelines; colored items are published or released as open code, gray items are open gaps not yet automated.</p>
+  <p class="foot" hidden data-role="description">A self-playing overview of the Ouyang Lab's cardiovascular-AI research. Bar heights are the number of echocardiogram videos used to train each model — view- and quality-filtered training sets, not full study counts. Task coverage is mapped to the ASE standardized echo report and its assessment &amp; quantification guidelines; colored items are published or released as open code, gray items are open gaps not yet automated.</p>
 </div>
 
 <script>
@@ -546,7 +531,7 @@ a.chip{text-decoration:none;cursor:pointer}
   /* ---------- scene engine ---------- */
   var scenes=[].slice.call(document.querySelectorAll('.scene'));
   var stage=document.getElementById('stage');
-  var pb=document.getElementById('pb'), tag=document.getElementById('sceneTag'), cnt=document.getElementById('sceneCount');
+  var pb=document.getElementById('pb');
   var timeLbl=document.getElementById('timeLbl'), dotsWrap=document.getElementById('dots');
   var playBtn=document.getElementById('playBtn'), playTxt=document.getElementById('playTxt'), playIco=document.getElementById('playIco');
   var durs=scenes.map(function(s){return +s.dataset.dur||5000;});
@@ -567,8 +552,6 @@ a.chip{text-decoration:none;cursor:pointer}
   function activate(i){
     scenes.forEach(function(s,k){ s.setAttribute('data-on', k===i?'1':'0'); });
     dots.forEach(function(d,k){ d.setAttribute('aria-current', k===i?'true':'false'); });
-    tag.textContent = pad(i+1)+' · '+scenes[i].dataset.tag;
-    cnt.textContent = pad(i+1)+' / '+pad(scenes.length);
     runScene(i);
   }
 
