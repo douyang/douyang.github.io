@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Reading the Heart — Ouyang Lab</title>
+<meta name="description" content="A self-playing overview of the Ouyang Lab's cardiovascular-AI research. Bar heights are the number of echocardiogram videos used to train each model — view- and quality-filtered training sets, not full study counts. Task coverage is mapped to the ASE standardized echo report and its assessment &amp; quantification guidelines; colored items are published or released as open code, gray items are open gaps not yet automated.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -214,21 +215,12 @@ a.chip{text-decoration:none;cursor:pointer}
 <body>
 
 <div class="wrap">
-  <div class="mast">
-    <span class="dot" aria-hidden="true"></span>
-    <h1>Ouyang Lab — Cardiovascular AI</h1>
-    <span class="spacer"></span>
-    <span class="tag">2020 → 2026</span>
-  </div>
-
   <div class="player">
     <div class="stage" id="stage" tabindex="0" aria-label="Ouyang Lab research film. Use arrow keys to move between scenes.">
       <canvas id="wave" aria-hidden="true"></canvas>
       <div class="grid-overlay" aria-hidden="true"></div>
       <div class="vignette" aria-hidden="true"></div>
       <div class="pbar" aria-hidden="true"><i id="pb"></i></div>
-      <div class="scene-tag" id="sceneTag">01 · Intro</div>
-      <div class="scene-count" id="sceneCount">01 / 07</div>
 
       <!-- 0 · TITLE (static — complete at rest for the first frame) -->
       <section class="scene" data-dur="4600" data-tag="Intro">
@@ -313,7 +305,7 @@ a.chip{text-decoration:none;cursor:pointer}
     </div>
   </div>
 
-  <p class="foot">A self-playing overview of the Ouyang Lab's cardiovascular-AI research. Bar heights are the number of echocardiogram videos used to train each model — view- and quality-filtered training sets, not full study counts. Task coverage is mapped to the ASE standardized echo report and its assessment &amp; quantification guidelines; colored items are published or released as open code, gray items are open gaps not yet automated.</p>
+  <p class="foot" hidden data-role="description">A self-playing overview of the Ouyang Lab's cardiovascular-AI research. Bar heights are the number of echocardiogram videos used to train each model — view- and quality-filtered training sets, not full study counts. Task coverage is mapped to the ASE standardized echo report and its assessment &amp; quantification guidelines; colored items are published or released as open code, gray items are open gaps not yet automated.</p>
 </div>
 
 <script>
@@ -546,7 +538,7 @@ a.chip{text-decoration:none;cursor:pointer}
   /* ---------- scene engine ---------- */
   var scenes=[].slice.call(document.querySelectorAll('.scene'));
   var stage=document.getElementById('stage');
-  var pb=document.getElementById('pb'), tag=document.getElementById('sceneTag'), cnt=document.getElementById('sceneCount');
+  var pb=document.getElementById('pb');
   var timeLbl=document.getElementById('timeLbl'), dotsWrap=document.getElementById('dots');
   var playBtn=document.getElementById('playBtn'), playTxt=document.getElementById('playTxt'), playIco=document.getElementById('playIco');
   var durs=scenes.map(function(s){return +s.dataset.dur||5000;});
@@ -567,8 +559,6 @@ a.chip{text-decoration:none;cursor:pointer}
   function activate(i){
     scenes.forEach(function(s,k){ s.setAttribute('data-on', k===i?'1':'0'); });
     dots.forEach(function(d,k){ d.setAttribute('aria-current', k===i?'true':'false'); });
-    tag.textContent = pad(i+1)+' · '+scenes[i].dataset.tag;
-    cnt.textContent = pad(i+1)+' / '+pad(scenes.length);
     runScene(i);
   }
 
