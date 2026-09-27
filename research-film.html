@@ -269,7 +269,7 @@ body{margin:0;background:
       <!-- 4 · TIMELINE -->
       <section class="scene" data-dur="8600" data-tag="Milestones">
         <p class="eyebrow rise">Progress, year by year</p>
-        <h2 class="h-lg rise d1">From one measurement to the whole study.</h2>
+        <h2 class="h-lg rise d1" style="font-size:clamp(1.25rem,3.5vw,2.05rem)">From one measurement to the whole study.</h2>
         <div class="tl">
           <div class="tl-rail"><i id="tlFill"></i></div>
           <div class="tl-row" id="tlRow"></div>
@@ -317,7 +317,7 @@ body{margin:0;background:
     </div>
   </div>
 
-  <p class="foot">A self-playing overview of the Ouyang Lab's cardiovascular-AI research. Dataset sizes are the echocardiogram-video counts reported in each model's source publication. Task coverage is mapped to the American Society of Echocardiography's assessment &amp; quantification guidelines (chamber quantification, diastolic function, valvular regurgitation and stenosis).</p>
+  <p class="foot">A self-playing overview of the Ouyang Lab's cardiovascular-AI research. Bar heights are the number of echocardiogram videos used to train each model — view- and quality-filtered training sets, not full study counts. Task coverage is mapped to the ASE standardized echo report and its assessment &amp; quantification guidelines; colored items are published or released as open code, gray items are open gaps not yet automated.</p>
 </div>
 
 <script>
@@ -337,18 +337,18 @@ body{margin:0;background:
 
   /* Videos used to develop each model — from the source publication. Sorted smallest-first (rising staircase). */
   var SCALE = [
-    {n:7169,     name:'EchoNet-RV',            sh:'RV',        disp:'7,169',  yr:2026},
-    {n:7643,     name:'EchoNet-Pediatric',     sh:'Peds',      disp:'7,643',  yr:2023},
-    {n:10030,    name:'EchoNet-Dynamic',       sh:'Dynamic',   disp:'10,030', yr:2020},
-    {n:17802,    name:'EchoNet-LVH',           sh:'LVH',       disp:'17,802', yr:2022},
-    {n:47638,    name:'EchoNet-AR',            sh:'AR',        disp:'47,638', yr:2025},
-    {n:70066,    name:'EchoNet-Labs',          sh:'Labs',      disp:'70,066', yr:2021},
-    {n:1032975,  name:'EchoCLIP',              sh:'CLIP',      disp:'1.03M',  yr:2024},
-    {n:1427660,  name:'EchoNet-Pericardium',   sh:'Pericard',  disp:'1.43M',  yr:2025},
-    {n:1596640,  name:'EchoNet-Liver',         sh:'Liver',     disp:'1.60M',  yr:2025},
-    {n:2079898,  name:'Tricuspid regurg.',     sh:'TR',        disp:'2.08M',  yr:2025},
-    {n:2587538,  name:'Mitral regurg.',        sh:'MR',        disp:'2.59M',  yr:2024},
-    {n:12124168, name:'EchoPrime',             sh:'EchoPrime', disp:'12.1M',  yr:2025}
+    {n:7169,     name:'EchoNet-RV',          disp:'7,169',   yr:2026},
+    {n:7643,     name:'EchoNet-Pediatric',   disp:'7,643',   yr:2023},
+    {n:10030,    name:'EchoNet-Dynamic',     disp:'10,030',  yr:2020},
+    {n:11419,    name:'EchoNet-Liver',       disp:'11,419',  yr:2025},
+    {n:17802,    name:'EchoNet-LVH',         disp:'17,802',  yr:2022},
+    {n:20604,    name:'EchoNet-MR',          disp:'20,604',  yr:2024},
+    {n:47638,    name:'EchoNet-AR',          disp:'47,638',  yr:2025},
+    {n:57701,    name:'EchoNet-TR',          disp:'57,701',  yr:2025},
+    {n:70066,    name:'EchoNet-Labs',        disp:'70,066',  yr:2021},
+    {n:1032975,  name:'EchoCLIP',            disp:'1.03M',   yr:2024},
+    {n:1139533,  name:'EchoNet-Pericardium', disp:'1.14M',   yr:2025},
+    {n:12124168, name:'EchoPrime',           disp:'12.1M',   yr:2025}
   ];
   function tierColor(n){ return n>=5000000 ? '#8c1515' : (n>=1000000 ? '#a16207' : '#0f766e'); }
   var VNS='http://www.w3.org/2000/svg';
@@ -361,13 +361,15 @@ body{margin:0;background:
     var wide=W>=680, mid=W>=460;
     var H=Math.round(Math.min(Math.max(W*0.52,260),380));
     var L=46, R=14, top=26;
-    var bottom=wide?98:(mid?82:72);
+    var glFs=wide?12:11, nameFs=wide?13:(mid?11.5:10), valFs=wide?12:10.5;
+    var rot=wide?-32:(mid?-45:-58);
+    var maxChars=0; SCALE.forEach(function(p){ if(p.name.length>maxChars) maxChars=p.name.length; });
+    var bottom=Math.min(Math.round(maxChars*nameFs*0.56*Math.sin(Math.abs(rot)*Math.PI/180))+24, Math.round(H*0.55));
     var plotH=H-top-bottom, baseY=top+plotH;
     var n=SCALE.length, slot=(W-L-R)/n, barW=Math.min(slot*0.62,54);
-    var lx0=Math.log10(5000), lx1=Math.log10(16000000);
+    var lx0=Math.log10(3000), lx1=Math.log10(16000000);
     function Yv(v){ return baseY-(Math.log10(v)-lx0)/(lx1-lx0)*plotH; }
-    var showVal=slot>=42, glFs=wide?12:11, nameFs=wide?13:(mid?11.5:10.5), valFs=wide?12:10.5;
-    var rot=wide?-30:-46;
+    var showVal=slot>=42;
     host.innerHTML='';
     var svg=vEl('svg',{viewBox:'0 0 '+W+' '+H,'class':'vbchart',role:'img',
       'aria-label':'Bar chart of echocardiogram videos used to develop 12 echo models on a log scale, rising from 7,169 (EchoNet-RV) to 12.1 million (EchoPrime).'});
@@ -383,7 +385,7 @@ body{margin:0;background:
       svg.appendChild(rect);
       var vt=null;
       if(showVal){ vt=vEl('text',{'class':'bv',x:cx,y:byTop-6,'text-anchor':'middle','font-size':valFs,opacity:(reduce||!animate)?1:0});vt.textContent=p.disp;svg.appendChild(vt); }
-      var by=baseY+14, lbl=wide?p.name:p.sh;
+      var by=baseY+14, lbl=p.name;
       var nm=vEl('text',{'class':'bx',x:cx,y:by,'text-anchor':'end','font-size':nameFs,transform:'rotate('+rot+' '+cx+' '+by+')'});
       nm.textContent=lbl; svg.appendChild(nm);
       bars.push({rect:rect,vt:vt,cx:cx,baseY:baseY});
@@ -404,47 +406,60 @@ body{margin:0;background:
     var host=document.getElementById('scaleChart'); if(!host) return;
     scaleRO=new ResizeObserver(function(){
       var host2=document.getElementById('scaleChart'); if(!host2) return;
-      if(Math.round(host2.clientWidth)===lastVBW) return;
+      if(Math.max(300,Math.round(host2.clientWidth))===lastVBW) return;
       renderVBar(false);
     });
     scaleRO.observe(host);
   }
 
-  /* ASE assessment & quantification domains — done (with year) vs roadmap (todo) */
+  /* Echo-report elements mapped to what the lab's AI does (year) vs the open gaps (gray).
+     Done items are grounded in published papers / released github.com/echonet code. */
   var DOMAINS = [
-    {d:'Chambers & function', ase:'ASE · Lang 2015', items:[
-      {c:'LVEF',   n:'LV ejection fraction', y:2020},
-      {c:'LV mass',n:'LV hypertrophy',       y:2021},
-      {c:'RV',     n:'RV function',          y:2022},
-      {c:'LA / RA',n:'Atrial volumes'}
+    {d:'LV structure & function', ase:'ASE report · Lang 2015', items:[
+      {c:'LVEF',            n:'Ejection fraction',        y:2020},
+      {c:'LV segmentation', n:'Frame-by-frame LV tracing',y:2020},
+      {c:'LV volumes',      n:'EDV / ESV',                y:2020},
+      {c:'Wall thickness',  n:'IVS / LVID / LVPW',        y:2022},
+      {c:'LV mass',         n:'Derived LV mass',          y:2022},
+      {c:'Regional wall motion', n:'Segmental WMA scoring'}
     ]},
-    {d:'Diastolic function', ase:'ASE · Nagueh 2016', items:[
-      {c:'Grading',n:'Diastolic dysfunction', y:2023},
-      {c:'Filling',n:'LV filling pressure'}
+    {d:'Right heart & atria', ase:'ASE report · chambers', items:[
+      {c:'RV function',     n:'RV segmentation + RVFAC',  y:2026},
+      {c:'LA size & volume',n:'LA dimension, LAVi',       y:2025},
+      {c:'Ao root · PA · IVC', n:'Great-vessel & IVC diameters', y:2025},
+      {c:'TAPSE · RV strain', n:'Not yet automated'},
+      {c:'RA volume',       n:'Right atrial volume'}
     ]},
-    {d:'Valve regurgitation', ase:'ASE · Zoghbi 2017', items:[
-      {c:'MR',n:'Mitral regurgitation',    y:2024},
-      {c:'TR',n:'Tricuspid regurgitation', y:2025},
-      {c:'AR',n:'Aortic regurgitation',    y:2025},
-      {c:'PR',n:'Pulmonic regurgitation'}
+    {d:'Diastolic & Doppler', ase:'ASE report · Nagueh 2016', items:[
+      {c:'Diastolic grade', n:'2016 ASE grading pipeline',y:2025},
+      {c:'e′ velocities',   n:'Septal & lateral e′',      y:2025},
+      {c:'Mitral E / A',    n:'Transmitral inflow',       y:2025},
+      {c:'Valve / LVOT Vmax', n:'AV, TR, MR, LVOT peak velocity + VTI', y:2025},
+      {c:'E/e′ · PASP',     n:'Filling pressure, PA pressure'},
+      {c:'Stroke volume / CO', n:'From LVOT VTI'}
     ]},
-    {d:'Valve stenosis', ase:'ASE · Baumgartner 2017', items:[
-      {c:'AS',    n:'Aortic stenosis',  y:2022},
-      {c:'MS',    n:'Mitral stenosis',  y:2025},
-      {c:'Prosth',n:'Prosthetic valves'}
+    {d:'Valve regurgitation', ase:'ASE report · Zoghbi 2017', items:[
+      {c:'Mitral (MR)',     n:'MR severity',       y:2024},
+      {c:'Tricuspid (TR)',  n:'TR severity',       y:2025},
+      {c:'Aortic (AR)',     n:'AR severity',       y:2025},
+      {c:'Pulmonic (PR)',   n:'PR severity'},
+      {c:'EROA / RegVol',   n:'Quantitative PISA / vena contracta'}
     ]},
-    {d:'Myocardium & pericardium', ase:'strain · tissue · effusion', items:[
-      {c:'GLS',     n:'Global long. strain',   y:2023},
-      {c:'Amyloid', n:'Cardiac amyloidosis',   y:2021},
-      {c:'HCM',     n:'Hypertrophic CM',       y:2023},
-      {c:'Effusion',n:'Pericardial effusion',  y:2025},
-      {c:'Mass',    n:'Masses & thrombus'}
+    {d:'Valve stenosis', ase:'ASE report · Baumgartner 2017', items:[
+      {c:'Aortic (AS)',     n:'AS severity + AV Vmax', y:2022},
+      {c:'Mitral (MS)',     n:'MS severity',           y:2025},
+      {c:'Valve area (AVA/MVA)', n:'Planimetry / continuity'},
+      {c:'Mean gradient',   n:'Continuous-wave gradient'},
+      {c:'Prosthetic valves', n:'Prosthesis assessment'}
     ]},
-    {d:'Whole-study AI', ase:'view · quality · report', items:[
-      {c:'View',   n:'View & image quality', y:2022},
-      {c:'Measure',n:'Automated measurements',y:2024},
-      {c:'Report', n:'Full report — EchoPrime',y:2024},
-      {c:'Exam',   n:'One-pass exam readout'}
+    {d:'Tissue & whole-study AI', ase:'strain · views · report', items:[
+      {c:'GLS strain',      n:'LV global longitudinal strain', y:true},
+      {c:'Amyloid',         n:'Cardiac amyloidosis', y:2021},
+      {c:'HCM',             n:'Hypertrophic CM',     y:2023},
+      {c:'Pericardial effusion', n:'Effusion / tamponade', y:2025},
+      {c:'View & quality',  n:'View classification & image quality', y:2022},
+      {c:'Full report — EchoPrime', n:'Comprehensive interpretation', y:2025},
+      {c:'Masses · congenital', n:'Thrombus, tumors, congenital'}
     ]}
   ];
 
@@ -461,8 +476,9 @@ body{margin:0;background:
     var card=document.createElement('div'); card.className='dom';
     var chips='';
     dm.items.forEach(function(it){
-      if(it.y) chips+='<span class="chip done" data-done="1"><span>'+it.c+'</span><span class="yr">'+String(it.y).slice(2)+"'"+'</span></span>';
-      else chips+='<span class="chip todo" title="'+it.n+'">'+it.c+'</span>';
+      if(it.y){ var tag = (typeof it.y==='number') ? String(it.y).slice(2)+"'" : '✓';
+        chips+='<span class="chip done" data-done="1" title="'+(it.n||'')+'"><span>'+it.c+'</span><span class="yr">'+tag+'</span></span>';
+      } else chips+='<span class="chip todo" title="'+(it.n||'')+'">'+it.c+'</span>';
     });
     card.innerHTML='<div class="dh">'+dm.d+'</div><div class="ase">'+dm.ase+'</div><div class="chips">'+chips+'</div>';
     covGrid.appendChild(card);
@@ -476,7 +492,7 @@ body{margin:0;background:
   var playBtn=document.getElementById('playBtn'), playTxt=document.getElementById('playTxt'), playIco=document.getElementById('playIco');
   var durs=scenes.map(function(s){return +s.dataset.dur||5000;});
   var total=durs.reduce(function(a,b){return a+b;},0);
-  var cur=-1, elapsed=0, playing=false, last=0, raf=0;
+  var cur=-1, elapsed=0, playing=false, last=0, raf=0, autoPaused=false;
 
   // dots
   var dots=scenes.map(function(s,i){
@@ -571,7 +587,7 @@ body{margin:0;background:
   function loop(ts){
     if(!playing) return;
     var dt=ts-last; last=ts; elapsed+=dt;
-    if(elapsed>=total){ elapsed=total; render(); setPlaying(false); return; }
+    if(elapsed>=total){ elapsed-=total; }   /* loop back to the start and keep playing */
     render();
     raf=requestAnimationFrame(loop);
   }
@@ -634,7 +650,8 @@ body{margin:0;background:
   else { setPlaying(true); }
 
   document.addEventListener('visibilitychange',function(){
-    if(document.hidden && playing) setPlaying(false);
+    if(document.hidden){ if(playing){ autoPaused=true; setPlaying(false); } }
+    else if(autoPaused){ autoPaused=false; setPlaying(true); }
   });
 })();
 </script>
@@ -644,8 +661,11 @@ body{margin:0;background:
 (function(){
   "use strict";
   function h(){
-    var d=document.documentElement, b=document.body;
-    return Math.ceil(Math.max(d.scrollHeight, b?b.scrollHeight:0, d.offsetHeight));
+    // Measure the body content box (auto height) — NOT documentElement.scrollHeight,
+    // which is floored at the iframe viewport height and so can never report a shrink.
+    var b=document.body;
+    if(!b) return Math.ceil(document.documentElement.getBoundingClientRect().height);
+    return Math.ceil(Math.max(b.scrollHeight, b.offsetHeight, b.getBoundingClientRect().bottom));
   }
   var lastH=0;
   function post(){
