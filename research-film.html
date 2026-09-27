@@ -65,6 +65,8 @@ body{margin:0;background:
 .scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
   padding:clamp(20px,5.2vw,60px);opacity:0;visibility:hidden;transition:opacity .5s ease}
 .scene[data-on="1"]{opacity:1;visibility:visible}
+.scene[data-tag="Coverage"]{justify-content:flex-start;overflow-y:auto;scrollbar-width:none}
+.scene[data-tag="Coverage"]::-webkit-scrollbar{display:none}
 .eyebrow{font-family:var(--mono);font-size:clamp(.62rem,1.5vw,.78rem);letter-spacing:.2em;
   text-transform:uppercase;color:var(--pulse);margin:0 0 clamp(10px,2vw,18px)}
 .h-xl{font-family:var(--disp);font-weight:700;line-height:1.02;letter-spacing:-.01em;
@@ -275,7 +277,7 @@ a.chip{text-decoration:none;cursor:pointer}
       </section>
 
       <!-- 6 · TASK COVERAGE (ASE framework) -->
-      <section class="scene" data-dur="9600" data-tag="Coverage">
+      <section class="scene" data-dur="11500" data-tag="Coverage">
         <p class="eyebrow rise">Task coverage — mapped to ASE assessment &amp; quantification</p>
         <h2 class="h-lg rise d1" style="font-size:clamp(1.25rem,3.4vw,2rem)">A systematic approach for the whole echo exam.</h2>
         <div class="cov" id="covGrid"></div>
@@ -421,7 +423,17 @@ a.chip{text-decoration:none;cursor:pointer}
     ar:{u:'https://www.medrxiv.org/content/10.1101/2025.03.18.25323918v1', c:'EchoNet-AR — medRxiv 2025'},
     as:{u:'https://github.com/echonet/AS', c:'EchoNet-AS — github.com/echonet/AS'},
     ms:{u:'https://github.com/echonet', c:'EchoNet-MS — github.com/echonet'},
-    peri:{u:'https://academic.oup.com/ehjdh/article/6/6/1216/8262550', c:'EchoNet-Pericardium — EHJ Digital Health 2025'}
+    peri:{u:'https://academic.oup.com/ehjdh/article/6/6/1216/8262550', c:'EchoNet-Pericardium — EHJ Digital Health 2025'},
+    clip:{u:'https://www.nature.com/articles/s41591-024-02959-y', c:'EchoCLIP — Nature Medicine 2024'},
+    ecg:{u:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12088713/', c:'ECG deep learning for coronary disease — EHJ Digital Health 2025'},
+    liver:{u:'https://ai.nejm.org/doi/abs/10.1056/AIoa2400948', c:'EchoNet-Liver — NEJM AI 2025'},
+    aaa:{u:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11480325/', c:'Abdominal aortic aneurysm screening — npj Digital Medicine 2024'},
+    rct:{u:'https://www.nature.com/articles/s41586-023-05947-3', c:'Blinded randomized trial of AI — Nature 2023'},
+    poc:{u:'https://doi.org/10.1016/j.jemermed.2023.02.005', c:'Point-of-care echo in the ED — J Emerg Med 2024'},
+    bias:{u:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10883605/', c:'Machine learning & bias in imaging — Circ Cardiovasc Imaging 2024'},
+    confound:{u:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9780355/', c:'Confounders in AI demographics — npj Digital Medicine 2022'},
+    onc:{u:'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9360492/', c:'AI in cardio-oncology — Front Cardiovasc Med 2022'},
+    aging:{u:'https://doi.org/10.1161/CIRCRESAHA.121.319902', c:'Sex differences in cardiovascular aging — Circ Res 2022'}
   };
   var DOMAINS = [
     {d:'Chambers', ase:'structure & size', items:[
@@ -463,6 +475,25 @@ a.chip{text-decoration:none;cursor:pointer}
       {c:'Full report — EchoPrime', r:'prime'},
       {c:'Masses · thrombus'},
       {c:'Congenital'}
+    ]},
+    {d:'Foundation & multimodal AI', ase:'across modalities', items:[
+      {c:'EchoCLIP', r:'clip'},
+      {c:'EchoPrime', r:'prime'},
+      {c:'ECG risk models', r:'ecg'}
+    ]},
+    {d:'Beyond the heart', ase:'opportunistic screening', items:[
+      {c:'Liver disease', r:'liver'},
+      {c:'Abdominal aortic aneurysm', r:'aaa'}
+    ]},
+    {d:'Trials & point-of-care', ase:'deployment & access', items:[
+      {c:'Blinded randomized trial', r:'rct'},
+      {c:'ED point-of-care echo', r:'poc'}
+    ]},
+    {d:'Trustworthy AI & other', ase:'bias · fairness · breadth', items:[
+      {c:'Bias in medical imaging', r:'bias'},
+      {c:'AI demographic confounders', r:'confound'},
+      {c:'Cardio-oncology', r:'onc'},
+      {c:'Cardiovascular aging', r:'aging'}
     ]},
     {d:'Measurements & segmentation', ase:'quantification', wide:true, items:[
       {c:'LVEF', r:'dynamic'},
@@ -589,14 +620,26 @@ a.chip{text-decoration:none;cursor:pointer}
       }
     }
     else if(t==='Coverage'){
+      var scn=scenes[i];
       var doms=document.querySelectorAll('.dom');
-      var dchips=document.querySelectorAll('.chip.done');
-      if(reduce){
-        doms.forEach(function(d){d.classList.add('on');});
-        dchips.forEach(function(c){c.classList.add('on');});
-      } else {
-        doms.forEach(function(d,k){ later(function(){ d.classList.add('on'); }, 120+k*150); });
-        dchips.forEach(function(c,k){ later(function(){ if(scenes[i].getAttribute('data-on')==='1') c.classList.add('on'); }, 560+k*55); });
+      scn.scrollTop=0;
+      if(reduce){ doms.forEach(function(d){d.classList.add('on');}); }
+      else {
+        doms.forEach(function(d,k){ later(function(){ d.classList.add('on'); }, 120+k*95); });
+        // gentle auto-scroll through the full coverage map so nothing is missed
+        later(function(){
+          if(scn.getAttribute('data-on')!=='1') return;
+          var max=scn.scrollHeight-scn.clientHeight; if(max<=8) return;
+          var t0=null, dur=5600;
+          (function step(){
+            if(scn.getAttribute('data-on')!=='1') return;
+            if(t0===null) t0=performance.now();
+            var p=Math.min(1,(performance.now()-t0)/dur);
+            var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+            scn.scrollTop=max*e;
+            if(p<1) requestAnimationFrame(step);
+          })();
+        }, 1500);
       }
     }
   }
