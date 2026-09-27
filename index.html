@@ -158,6 +158,22 @@
     text-decoration: none;
   }
 
+  /* ---- Research film (embedded, isolated in an iframe) ---- */
+  .film-block {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .film-frame {
+    width: 100%;
+    border: 0;
+    display: block;
+    height: 660px;
+    overflow: hidden;
+    background: var(--color-bg);
+    color-scheme: light;
+  }
+
   /* ---- Sections ---- */
   .section {
     display: grid;
@@ -287,6 +303,10 @@
 
   /* ---- Responsive ---- */
   @media (max-width: 700px) {
+    .film-frame {
+      height: 580px;
+    }
+
     .header {
       flex-direction: column;
       align-items: center;
@@ -347,6 +367,13 @@
       </div>
     </div>
   </header>
+
+  <!-- Research film (Ouyang Lab) — isolated in a same-origin iframe, auto-sized below -->
+  <section class="film-block" aria-label="Ouyang Lab research overview">
+    <iframe id="lab-film-frame" class="film-frame"
+            title="Ouyang Lab research film: research direction, milestones, training-data scale, and echocardiography-task coverage"
+            src="research-film.html" scrolling="no" loading="eager"></iframe>
+  </section>
 
   <!-- About -->
   <section class="section">
@@ -500,6 +527,21 @@
   </section>
 
 </div>
+
+<script>
+/* Auto-size the research-film iframe to its content (message posted by research-film.html). */
+(function(){
+  "use strict";
+  window.addEventListener('message', function(e){
+    var f = document.getElementById('lab-film-frame');
+    if(!f || e.source !== f.contentWindow) return;
+    var d = e.data;
+    if(d && d.labFilm === 'height' && typeof d.height === 'number'){
+      f.style.height = Math.min(Math.max(d.height, 360), 2000) + 'px';
+    }
+  });
+})();
+</script>
 </body>
 </html>
     
