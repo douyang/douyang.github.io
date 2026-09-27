@@ -145,9 +145,9 @@ body{margin:0;background:
 .covleg .sw.todo{background:transparent;border:1px dashed var(--todo)}
 
 /* impact close */
-.impact{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,2vw,20px);margin-top:clamp(16px,3vw,26px)}
-.stat .big{font-family:var(--disp);font-weight:700;font-size:clamp(1.6rem,4.6vw,2.9rem);line-height:1;letter-spacing:-.01em}
-.stat:nth-child(1) .big{color:var(--heart)} .stat:nth-child(2) .big{color:var(--pulse)} .stat:nth-child(3) .big{color:var(--amber)}
+.impact{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,2vw,22px);margin-top:clamp(14px,2.6vw,24px)}
+.stat .big{font-family:var(--disp);font-weight:700;font-size:clamp(1.45rem,3.6vw,2.3rem);line-height:1.02;letter-spacing:-.01em}
+.stat:nth-child(1) .big{color:var(--heart)} .stat:nth-child(2) .big{color:var(--pulse)} .stat:nth-child(3) .big{color:var(--amber)} .stat:nth-child(4) .big{color:var(--heart)}
 .stat .cap{color:var(--muted);font-size:clamp(.78rem,1.5vw,.95rem);margin-top:8px;line-height:1.35}
 .close-line{font-family:var(--mono);color:var(--dim);letter-spacing:.08em;margin-top:clamp(18px,3vw,30px);font-size:clamp(.72rem,1.5vw,.9rem)}
 .close-line b{color:var(--pulse);font-weight:600}
@@ -189,7 +189,8 @@ body{margin:0;background:
   .tl-row{grid-template-columns:repeat(3,1fr);row-gap:20px}
   .cov{grid-template-columns:1fr}
   .facts{grid-template-columns:repeat(2,1fr)}
-  .impact{grid-template-columns:1fr;gap:14px}
+  .impact{grid-template-columns:repeat(2,1fr);gap:12px}
+  .tl-rail{display:none}
   .scene{justify-content:flex-start;padding-top:44px;overflow-y:auto}
 }
 @media(max-width:430px){
@@ -220,7 +221,7 @@ body{margin:0;background:
       <div class="vignette" aria-hidden="true"></div>
       <div class="pbar" aria-hidden="true"><i id="pb"></i></div>
       <div class="scene-tag" id="sceneTag">01 · Intro</div>
-      <div class="scene-count" id="sceneCount">01 / 08</div>
+      <div class="scene-count" id="sceneCount">01 / 07</div>
 
       <!-- 0 · TITLE (static — complete at rest for the first frame) -->
       <section class="scene" data-dur="4600" data-tag="Intro">
@@ -253,19 +254,6 @@ body{margin:0;background:
         </div>
       </section>
 
-      <!-- 3 · ECHONET OPEN -->
-      <section class="scene" data-dur="6600" data-tag="Open">
-        <p class="eyebrow rise">EchoNet — open to the field</p>
-        <h2 class="h-lg rise d1">The first large echo datasets, <span class="cyan-word">released publicly</span>.</h2>
-        <p class="lede rise d2">EchoNet released thousands of labeled echocardiograms — and the trained models — under an open license, so any group could build on them. NIH-funded and public, it became a global benchmark for cardiac-imaging AI.</p>
-        <div class="openstats">
-          <div class="ostat rise d2"><div class="big">10,030</div><div class="cap">labeled echo videos released publicly — EchoNet-Dynamic</div></div>
-          <div class="ostat rise d3"><div class="big">Open</div><div class="cap">datasets &amp; code shared with the research community</div></div>
-          <div class="ostat rise d4"><div class="big">Global</div><div class="cap">a benchmark adopted by groups worldwide</div></div>
-        </div>
-        <p class="mono-line rise d4"><b>github.com/echonet</b> · <b>echonet.github.io</b></p>
-      </section>
-
       <!-- 4 · TIMELINE -->
       <section class="scene" data-dur="8600" data-tag="Milestones">
         <p class="eyebrow rise">Progress, year by year</p>
@@ -295,15 +283,16 @@ body{margin:0;background:
         </div>
       </section>
 
-      <!-- 7 · CLOSE -->
-      <section class="scene" data-dur="7400" data-tag="Impact">
-        <p class="eyebrow rise">From development to deployment</p>
+      <!-- CLOSE · open science → deployment (merged with the EchoNet-open story) -->
+      <section class="scene" data-dur="8400" data-tag="Impact">
+        <p class="eyebrow rise">From open science to the clinic</p>
         <h2 class="h-lg rise d1">Echo AI that reaches the <span class="heart-word">patient</span>.</h2>
-        <p class="lede rise d2">Models that reproduce expert measurements, reveal subclinical disease, and hold up in randomized trials — open-sourced, FDA-cleared, and deployed in routine cardiac care.</p>
+        <p class="lede rise d2">Open datasets and models that reproduce expert measurements and reveal subclinical disease — proven in randomized trials, FDA-cleared, and deployed in routine care.</p>
         <div class="impact">
+          <div class="stat rise d2"><div class="big">EchoNet</div><div class="cap">First large echo datasets &amp; code, open-source — a global benchmark (github.com/echonet)</div></div>
           <div class="stat rise d2"><div class="big">1st</div><div class="cap">First blinded randomized clinical trial of AI in cardiology (2023)</div></div>
           <div class="stat rise d3"><div class="big">FDA</div><div class="cap">510(k)-cleared LVEF; Breakthrough-designated cardiac amyloid</div></div>
-          <div class="stat rise d4"><div class="big">Open</div><div class="cap">Open-source datasets &amp; code; high-impact peer-reviewed papers</div></div>
+          <div class="stat rise d3"><div class="big">Papers</div><div class="cap">High-impact results in Nature, NEJM AI, JACC &amp; Circulation</div></div>
         </div>
         <p class="close-line rise d4">OUYANG LAB · <b>development → deployment → implementation</b> · douyang.github.io</p>
       </section>
