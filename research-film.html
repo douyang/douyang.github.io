@@ -65,8 +65,11 @@ body{margin:0;background:
 .scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
   padding:clamp(20px,5.2vw,60px);opacity:0;visibility:hidden;transition:opacity .5s ease}
 .scene[data-on="1"]{opacity:1;visibility:visible}
-.scene[data-tag="Coverage"]{justify-content:flex-start;overflow-y:auto;scrollbar-width:none}
+.scene[data-tag="Coverage"]{justify-content:flex-start;overflow-y:auto;scrollbar-width:none;
+  padding-top:clamp(30px,4vw,38px);padding-bottom:clamp(10px,1.6vw,18px)}
 .scene[data-tag="Coverage"]::-webkit-scrollbar{display:none}
+.scene[data-tag="Coverage"] .chip{font-size:.56rem;padding:2px 5px}
+.scene[data-tag="Coverage"] .dh{font-size:clamp(.8rem,1.45vw,.96rem)}
 .eyebrow{font-family:var(--mono);font-size:clamp(.62rem,1.5vw,.78rem);letter-spacing:.2em;
   text-transform:uppercase;color:var(--pulse);margin:0 0 clamp(10px,2vw,18px)}
 .h-xl{font-family:var(--disp);font-weight:700;line-height:1.02;letter-spacing:-.01em;
@@ -125,14 +128,14 @@ body{margin:0;background:
 .scrange{font-family:var(--body);color:var(--muted);font-size:clamp(.8rem,1.7vw,1rem);margin:6px 0 0;line-height:1.4;max-width:60ch}
 
 /* task coverage — ASE framework */
-.cov{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,1.2vw,12px);margin-top:clamp(8px,1.6vw,14px)}
+.cov{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(6px,1vw,10px);margin-top:clamp(6px,1.2vw,11px)}
 .dom.wide{grid-column:1/-1}
-.dom{border:1px solid var(--line);border-radius:12px;padding:clamp(7px,1.1vw,11px);background:var(--panel);
+.dom{border:1px solid var(--line);border-radius:11px;padding:clamp(6px,1vw,10px);background:var(--panel);
   opacity:.34;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
 .dom.on{opacity:1;transform:none}
 .dom .dh{font-family:var(--disp);font-weight:600;font-size:clamp(.84rem,1.55vw,1.02rem);color:var(--ink);line-height:1.08}
 .dom .ase{font-family:var(--mono);font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin-top:3px}
-.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
 .chip{font-family:var(--mono);font-size:.6rem;letter-spacing:.01em;border-radius:6px;padding:2px 6px;
   display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:#fff;color:var(--muted);
   transition:filter .15s ease}
@@ -277,14 +280,14 @@ a.chip{text-decoration:none;cursor:pointer}
       </section>
 
       <!-- 6 · TASK COVERAGE (ASE framework) -->
-      <section class="scene" data-dur="11500" data-tag="Coverage">
-        <p class="eyebrow rise">Task coverage — mapped to ASE assessment &amp; quantification</p>
-        <h2 class="h-lg rise d1" style="font-size:clamp(1.25rem,3.4vw,2rem)">A systematic approach for the whole echo exam.</h2>
-        <div class="cov" id="covGrid"></div>
-        <div class="covleg rise d1">
-          <span><i class="sw done"></i>Published / built</span>
+      <section class="scene" data-dur="9000" data-tag="Coverage">
+        <p class="eyebrow rise">Task coverage — mapped to the ASE echo report</p>
+        <h2 class="h-lg rise d1" style="font-size:clamp(1.1rem,2.9vw,1.6rem)">A systematic approach for the whole echo exam.</h2>
+        <div class="covleg rise d1" style="margin:5px 0 0">
+          <span><i class="sw done"></i>Published / built — click to open</span>
           <span><i class="sw todo"></i>On the roadmap</span>
         </div>
+        <div class="cov" id="covGrid"></div>
       </section>
 
       <!-- CLOSE · open science → deployment (merged with the EchoNet-open story) -->
@@ -436,64 +439,59 @@ a.chip{text-decoration:none;cursor:pointer}
     aging:{u:'https://doi.org/10.1161/CIRCRESAHA.121.319902', c:'Sex differences in cardiovascular aging — Circ Res 2022'}
   };
   var DOMAINS = [
-    {d:'Chambers', ase:'structure & size', items:[
+    {d:'Chambers', items:[
       {c:'LV segmentation', r:'dynamic'},
-      {c:'LV size & wall thickness', r:'lvh'},
+      {c:'LV size & walls', r:'lvh'},
       {c:'LA size', r:'meas'},
-      {c:'RV size + segmentation', r:'rv'},
+      {c:'RV size + seg.', r:'rv'},
       {c:'LA / RA area', r:'seg'},
-      {c:'RA volume'},
-      {c:'3D chamber volumes'}
+      {c:'3D volumes'}
     ]},
-    {d:'Chamber assessment', ase:'function', items:[
-      {c:'LV ejection fraction', r:'dynamic'},
-      {c:'LV volumes (EDV/ESV)', r:'dynamic'},
-      {c:'RV function (RVFAC)', r:'rv'},
+    {d:'Chamber assessment', items:[
+      {c:'LVEF', r:'dynamic'},
+      {c:'LV volumes', r:'dynamic'},
+      {c:'RV function', r:'rv'},
       {c:'Diastolic grade', r:'diast'},
       {c:'GLS strain', r:'strain'},
-      {c:'Regional wall motion'},
-      {c:'TAPSE · RV strain'},
-      {c:'E/e′ filling pressure'}
+      {c:'Regional WMA'},
+      {c:'TAPSE'},
+      {c:'E/e′ pressure'}
     ]},
-    {d:'Valves', ase:'regurgitation & stenosis', items:[
-      {c:'Mitral regurg (MR)', r:'mr'},
-      {c:'Tricuspid regurg (TR)', r:'tr'},
-      {c:'Aortic regurg (AR)', r:'ar'},
-      {c:'Aortic stenosis (AS)', r:'as'},
-      {c:'Mitral stenosis (MS)', r:'ms'},
-      {c:'Valve peak velocities', r:'meas'},
-      {c:'Pulmonic regurg (PR)'},
-      {c:'Valve area / gradient'},
-      {c:'EROA / RegVol'},
-      {c:'Prosthetic valves'}
+    {d:'Valves', items:[
+      {c:'Mitral regurg', r:'mr'},
+      {c:'Tricuspid regurg', r:'tr'},
+      {c:'Aortic regurg', r:'ar'},
+      {c:'Aortic stenosis', r:'as'},
+      {c:'Mitral stenosis', r:'ms'},
+      {c:'Peak velocities', r:'meas'},
+      {c:'Pulmonic regurg'},
+      {c:'Valve area (AVA/MVA)'},
+      {c:'EROA / RegVol'}
     ]},
-    {d:'Disease & whole-study', ase:'tissue · views · report', items:[
+    {d:'Disease, foundation & whole-study', items:[
       {c:'Amyloid', r:'lvh'},
       {c:'HCM', r:'lvh'},
-      {c:'Pericardial effusion', r:'peri'},
+      {c:'Pericardial eff.', r:'peri'},
+      {c:'EchoCLIP', r:'clip'},
+      {c:'EchoPrime report', r:'prime'},
+      {c:'ECG models', r:'ecg'},
       {c:'View & quality', r:'prime'},
-      {c:'Full report — EchoPrime', r:'prime'},
-      {c:'Masses · thrombus'},
+      {c:'Masses'},
       {c:'Congenital'}
     ]},
-    {d:'Foundation & multimodal AI', ase:'across modalities', items:[
-      {c:'EchoCLIP', r:'clip'},
-      {c:'EchoPrime', r:'prime'},
-      {c:'ECG risk models', r:'ecg'}
-    ]},
-    {d:'Beyond the heart', ase:'opportunistic screening', items:[
+    {d:'Beyond the heart', items:[
       {c:'Liver disease', r:'liver'},
-      {c:'Abdominal aortic aneurysm', r:'aaa'}
+      {c:'Aortic aneurysm', r:'aaa'}
     ]},
-    {d:'Trials & point-of-care', ase:'deployment & access', items:[
-      {c:'Blinded randomized trial', r:'rct'},
-      {c:'ED point-of-care echo', r:'poc'}
+    {d:'Trials & point-of-care', items:[
+      {c:'Randomized trial', r:'rct'},
+      {c:'POC echo (ED)', r:'poc'}
     ]},
-    {d:'Trustworthy AI & other', ase:'bias · fairness · breadth', items:[
-      {c:'Bias in medical imaging', r:'bias'},
-      {c:'AI demographic confounders', r:'confound'},
+    {d:'Trustworthy AI & other', items:[
+      {c:'Imaging bias', r:'bias'},
+      {c:'AI confounders', r:'confound'},
       {c:'Cardio-oncology', r:'onc'},
-      {c:'Cardiovascular aging', r:'aging'}
+      {c:'Vascular aging', r:'aging'}
     ]},
     {d:'Measurements & segmentation', ase:'quantification', wide:true, items:[
       {c:'LVEF', r:'dynamic'},
@@ -518,12 +516,8 @@ a.chip{text-decoration:none;cursor:pointer}
       {c:'3D LV volume', r:'depth'},
       {c:'TAPSE'},
       {c:'RV free-wall strain'},
-      {c:'RA volume'},
       {c:'E/e′ ratio'},
       {c:'PASP / RVSP'},
-      {c:'Stroke volume / CO'},
-      {c:'Valve area (AVA/MVA)'},
-      {c:'Mean gradients'},
       {c:'IVC collapsibility'}
     ]}
   ];
@@ -545,7 +539,7 @@ a.chip{text-decoration:none;cursor:pointer}
         chips+='<a class="chip done" data-done="1" href="'+ref.u+'" target="_blank" rel="noopener noreferrer" title="'+ref.c+'">'+it.c+'</a>';
       } else chips+='<span class="chip todo" title="'+(it.n||'On the roadmap — not yet automated')+'">'+it.c+'</span>';
     });
-    card.innerHTML='<div class="dh">'+dm.d+'</div><div class="ase">'+dm.ase+'</div><div class="chips">'+chips+'</div>';
+    card.innerHTML='<div class="dh">'+dm.d+'</div><div class="chips">'+chips+'</div>';
     covGrid.appendChild(card);
   });
 
@@ -624,23 +618,7 @@ a.chip{text-decoration:none;cursor:pointer}
       var doms=document.querySelectorAll('.dom');
       scn.scrollTop=0;
       if(reduce){ doms.forEach(function(d){d.classList.add('on');}); }
-      else {
-        doms.forEach(function(d,k){ later(function(){ d.classList.add('on'); }, 120+k*95); });
-        // gentle auto-scroll through the full coverage map so nothing is missed
-        later(function(){
-          if(scn.getAttribute('data-on')!=='1') return;
-          var max=scn.scrollHeight-scn.clientHeight; if(max<=8) return;
-          var t0=null, dur=5600;
-          (function step(){
-            if(scn.getAttribute('data-on')!=='1') return;
-            if(t0===null) t0=performance.now();
-            var p=Math.min(1,(performance.now()-t0)/dur);
-            var e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
-            scn.scrollTop=max*e;
-            if(p<1) requestAnimationFrame(step);
-          })();
-        }, 1500);
-      }
+      else { doms.forEach(function(d,k){ later(function(){ d.classList.add('on'); }, 120+k*90); }); }
     }
   }
 
