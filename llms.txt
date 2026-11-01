@@ -1,0 +1,62 @@
+# David Ouyang, MD
+
+> Cardiologist and researcher building artificial intelligence for echocardiography. He is a physician-investigator in the Division of Research at Kaiser Permanente Northern California and an adjunct Assistant Professor at the Smidt Heart Institute at Cedars-Sinai Medical Center. His lab (the Ouyang Lab / EchoNet) develops, interprets, and deploys deep-learning models for cardiovascular imaging. He led the first blinded, randomized controlled trial of AI in cardiology and co-founded InVision Medical Technology, which builds FDA-cleared AI for echocardiography.
+
+David Ouyang's research spans three pillars: AI model development (precision phenotyping from echocardiogram video), AI model understanding (interpretable medical AI), and AI model deployment (prospective clinical trials and health-system integration). His work has been published in Nature, Nature Medicine, NEJM AI, Circulation, JAMA Cardiology, and the European Heart Journal. He is the creator of the open-source EchoNet datasets and models (github.com/echonet), and his echocardiography models are FDA-cleared and deployed in routine clinical care. ORCID: 0000-0002-3813-7518.
+
+## Profile and contact
+- [Homepage](https://douyang.github.io/): biography, research, lab members, publications, clinical trials, honors, and service.
+- [Publications (complete list)](https://douyang.github.io/publications.html): 140+ publications and preprints, newest first, with self-hosted PDFs where permitted.
+- [Curriculum vitae (PDF)](https://douyang.github.io/cv.pdf)
+- [Google Scholar](https://scholar.google.com/citations?user=on2DUKoAAAAJ&hl=en)
+- [ORCID](https://orcid.org/0000-0002-3813-7518)
+- Email: david.ouyang@gmail.com
+
+## Research
+- Mission: improve cardiovascular diagnosis and disease detection using computer vision and artificial intelligence.
+- [EchoNet open datasets and code](https://github.com/echonet): open-source echocardiography datasets and deep-learning models used as a global benchmark.
+- [Video-based AI for beat-to-beat assessment of cardiac function (EchoNet-Dynamic)](https://www.nature.com/articles/s41586-020-2145-8): Nature, 2020.
+- [Blinded, randomized controlled trial of sonographer vs. AI assessment of cardiac function](https://www.nature.com/articles/s41586-023-05947-3): Nature, 2023 — the first blinded randomized trial of AI in cardiology.
+- [Vision–language foundation model for echocardiogram interpretation (EchoCLIP)](https://www.nature.com/articles/s41591-024-02959-y): Nature Medicine, 2024.
+- [Comprehensive echocardiogram evaluation with view-primed vision-language AI (EchoPrime)](https://www.nature.com/articles/s41586-025-09850-x): Nature, 2026.
+
+## Clinical trials
+- AI ECHO INSIGHT — Kaiser Permanente AI echocardiogram interpretation for systematic integration (Co-PI). ClinicalTrials.gov NCT07229300.
+- ECHONET-LVH-RCT — blinded RCT of AI-guided precision assessment of wall thickness (PI). NCT05791227.
+- ECHONET-SCREENING — AI-guided echocardiographic screening of rare diseases (Co-PI). NCT06664866.
+- ECHONET-RCT — blinded RCT of sonographer vs. AI assessment of cardiac function (PI); published in Nature, 2023. NCT05140642.
+- SCOUT ECHO-AI — screening cardiometabolic opportunities using echocardiography AI (PI). NCT07216859.
+
+## InVision Medical Technology (co-founder)
+- [InVision Medical Technology](https://invisionmedtech.com/): Y Combinator-backed company building FDA-cleared AI for echocardiography.
+- Precision LVEF — FDA 510(k) cleared (2024, K232331); AI ejection-fraction measurement validated in a blinded, randomized trial.
+- Precision Cardiac Amyloid — FDA 510(k) cleared (2025, K243866), with FDA Breakthrough Device designation (2024).
+- Medicare New Technology Add-on Payment for Precision Cardiac Amyloid — up to $2,275 per inpatient stay, effective October 2026.
+- Precision Cirrhosis — FDA Breakthrough Device designation for AI detection of end-stage liver disease from echocardiography.
+
+## Education and training
+- BA in Statistics, Rice University.
+- MD, University of California, San Francisco (UCSF).
+- Residency in internal medicine and fellowship in cardiology.
+- Postdoctoral training in computer science and biomedical data science, Stanford University.
+
+## Selected honors
+- Elected Member, American Society for Clinical Investigation (ASCI), 2026.
+- Early Career Clinical Research Symbiont Award, 2022.
+- Edwin Alderman Award for Excellence in Clinical Research, 2020.
+- Barry M. Goldwater Scholar, 2009.
+
+## Service and editorial roles
+- NEJM AI — Deputy Editor.
+- American Society of Echocardiography — Chair, ImageGuideEcho Registry; Artificial Intelligence Task Force.
+- American Heart Association — Bay Area Board of Directors.
+- Journal of the American Society of Echocardiography — Editorial Board.
+
+## Education resource
+- [Intro to Echo / The Heart by Ultrasound](https://intro2echo.com): an illustrated, interactive guide to echocardiography.
+
+## Elsewhere
+- [X / Twitter](https://x.com/David_Ouyang)
+- [LinkedIn](https://www.linkedin.com/in/davidouyang/)
+- [GitHub](https://github.com/douyang)
+- [Substack: Intentional Intelligence](https://intentionalintelligence.substack.com/)

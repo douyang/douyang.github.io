@@ -1,0 +1,8 @@
+# https://douyang.github.io/robots.txt
+# Personal academic site of David Ouyang, MD. Crawling and indexing welcome.
+
+User-agent: *
+Allow: /
+
+# A plain-language summary for AI answer engines lives at /llms.txt
+Sitemap: https://douyang.github.io/sitemap.xml
